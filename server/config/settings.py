@@ -13,7 +13,7 @@ SECRET_KEY = '#q@&0@*$)b(4gfmtjk(3bz5aih*(di6nb28pj)#0oodra%(p4^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hack.ryadom.me', 'hack.ryadom.me:8000', 'localhost']
 
 
 # Application definition
@@ -25,6 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
+    'social_django',
+    'cauth',
+    'rest_framework.authtoken',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +56,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -57,6 +65,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+
+AUTHENTICATION_BACKENDS = (
+    'rest_framework.authentication.TokenAuthentication',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = '277267562682387'
+SOCIAL_AUTH_FACEBOOK_SECRET = '59f6adf3ea09b3e80ade8749445ca0ad'
+#SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.9'
+
+#SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+#    'locale': 'en_EN',
+#    'fields': 'id, name,email',
+#}
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -106,3 +129,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication'
+    ),
+}
+
+SWAGGER_SETTINGS = {
+    'base_path': 'hack.ryadom.me',
+    'is_authenticated': True,
+    'api_path': 'http://hack.ryadom.me/api/',
+}
