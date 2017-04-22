@@ -11,9 +11,13 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from rest_framework.authtoken.models import Token
 
+from app.methods import prepare_user
+
+
 def get_token(request):
     if request.user:
         user = request.user
+        prepare_user(user)
         token,_ = Token.objects.get_or_create(user=user)
         url = "copenhacks2017://?token=" + token.key + '&id=' + str(user.id)
     else:

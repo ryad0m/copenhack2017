@@ -1,0 +1,15 @@
+Chlamydia_http://www.ashasexualhealth.org/stdsstis/chlamydia/
+Crabs_http://www.ashasexualhealth.org/stdsstis/crabs/
+Gonorrhea_http://www.ashasexualhealth.org/stdsstis/gonorrhea/
+Hepatitis_http://www.ashasexualhealth.org/stdsstis/hepatitis/
+Herpes_http://www.ashasexualhealth.org/stdsstis/herpes/
+HIV_http://www.ashasexualhealth.org/stdsstis/hiv/
+HPV_http://www.ashasexualhealth.org/stdsstis/hpv/
+MGen_http://www.ashasexualhealth.org/sti-youve-probably-never-heard/
+Molluscum_http://www.ashasexualhealth.org/stdsstis/molluscum-contagiosum/
+NGU_http://www.ashasexualhealth.org/stdsstis/ngu/
+PID_http://www.ashasexualhealth.org/stdsstis/pid/
+Scabies_http://www.ashasexualhealth.org/stdsstis/scabies/
+Syphilis_http://www.ashasexualhealth.org/stdsstis/syphilis/
+Trichomoniasis_http://www.ashasexualhealth.org/stdsstis/trichomoniasis/
+Vaginitis_http://www.ashasexualhealth.org/stdsstis/vaginitis/
