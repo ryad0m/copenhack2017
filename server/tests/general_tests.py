@@ -20,7 +20,10 @@ class GeneralTestSuite(unittest.TestCase):
 
     def save_in_file(self, probabilitites, filename):
         with open(os.path.join(OUTPUT_DIR, filename), 'w', encoding='utf8') as f:
-            f.write(str(probabilitites))
+            for person, prob_dict in probabilitites.items():
+                f.write(person + '\n')
+                for disease, proba in prob_dict.items():
+                    f.write('\t{}: {}\n'.format(disease, proba))
 
 
     def setUp(self):

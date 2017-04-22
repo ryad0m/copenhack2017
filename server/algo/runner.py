@@ -18,7 +18,8 @@ class Runner:
 
 	def get_probabilities(self):
 		""" return {person_id: {disease_name: probability}} """
-		return {person.id: person.disease_probabilities for person in self.persons}
+		result_dict = dict()
+		return {person.id: person.get_probabilities() for person in self.persons}
 
 
 	def run(self):

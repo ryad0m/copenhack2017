@@ -117,6 +117,13 @@ class Person:
 		return False
 
 
+	def get_probabilities(self):
+		result_dict = dict()
+		for disease, dated_proba in self.disease_probabilities.items():
+			result_dict[disease] = dated_proba.probability
+		return result_dict
+
+
 		
 
 
