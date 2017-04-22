@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (4.3.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
+  - DatePickerDialog (1.1.7)
+  - Hero (0.3.2)
+  - SwiftyJSON (3.1.4)
+  - SwipeCellKit (1.2.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireImage
+  - DatePickerDialog
+  - Hero
+  - SwiftyJSON
+  - SwipeCellKit
+
+SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
+  DatePickerDialog: bd5e7e92e4da2c6a8966b28d5f5d8f335d6c2c63
+  Hero: 48f8df6798d16d35935cfbb0726c5fbbd23cfe5a
+  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  SwipeCellKit: 8aa776c650c5b775c2231c39e39e2f391eed83a4
+
+PODFILE CHECKSUM: 3c50a1ef3ec96214aba2f3e6f4e3cf93d5b53dcf
+
+COCOAPODS: 1.1.0
