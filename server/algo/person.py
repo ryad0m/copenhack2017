@@ -12,7 +12,7 @@ module_logger = logging.getLogger('Person')
 
 # Multiplier when we go futher from the source of disease 
 FADING_COEFF = 0.95
-
+CONDOM_COEFF = 0.5
 
 class SpreadPack:
 
@@ -107,6 +107,7 @@ class Person:
 					for k, v_list in spread_pack.spread_dict.items()}
 			))
 			visited_persons.add(spread_pack.person.id)
+			# {disease_name: List[DatedProbability]}
 			updated_spread_dict = spread_pack.activate()
 			module_logger.info('{}: update spread pack {}'.format(
 				spread_pack.person.id,
@@ -118,11 +119,22 @@ class Person:
 				for contact in spread_pack.person.contacts:
 					if contact.parnter_id in visited_persons:
 						continue
-					# TODO: truncate update_spread_dict based on person's contacts
-					# TODO: check if condom was used
+					contact_spread_pack = dict()
+					# TODO: Truncate update_spread_dict based on contacts between partners
+					for disease_name, proba_list in updated_spread_dict.items():
+						contact_spread_pack[disease_name] = []
+						multiplier = 1.
+						if contact.condom_was_used:
+							multiplier *= CONDOM_COEFF
+						for dated_proba in proba_list:
+							contact_spread_pack[disease_name].append(DatedProbability(
+								date=dated_proba.date,
+								end_date=dated_proba.end_date,
+								probability=dated_proba.probability * multiplier
+							))
 					persons_quene.append(SpreadPack(
 						persons_dict[contact.parnter_id],
-						updated_spread_dict
+						contact_spread_pack
 					))
 
 
