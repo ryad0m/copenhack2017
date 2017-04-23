@@ -179,7 +179,11 @@ extension AddConnectionController: UITableViewDelegate, UITableViewDataSource {
                                     maximumDate: nil,
                                     datePickerMode: .date,
                                     callback: { [unowned self] date in
-                
+                                        
+                                        if date == nil {
+                                            return
+                                        }
+                                        
                                         self.dates[indexPath.row] = date
                                         self.tableView.reloadRows(at: [indexPath], with: .none)
                 

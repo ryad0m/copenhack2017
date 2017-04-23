@@ -9,6 +9,8 @@
 import UIKit
 import Hero
 
+let updateNotification: Notification.Name = Notification.Name("updateNotification")
+
 class MainController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -26,6 +28,13 @@ class MainController: UIViewController {
         sections = [[nil],
                     [Test.Result.negative, Test.Result.positive],
                     [Test.Result.additional]]
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateMe),
+                                               name: updateNotification,
+                                               object: nil)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +75,15 @@ class MainController: UIViewController {
             self.sections[0] = [me]
             self.collectionView.reloadSections(IndexSet(integer: 0))
         })
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+        if motion == .motionShake {
+            if AuthModel.shared.isSignedIn {
+                onLogOut(self)
+            }
+        }
     }
     
 }

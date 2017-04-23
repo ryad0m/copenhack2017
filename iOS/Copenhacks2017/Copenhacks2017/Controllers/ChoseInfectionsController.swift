@@ -50,17 +50,25 @@ class ChoseInfectionsController: UIViewController {
     }
     
     @IBAction func onSend(_ sender: Any) {
+        let dialog = DatePickerDialog()
         DatePickerDialog().show(title: "When did you pass test?",
                                 doneButtonTitle: "Done",
                                 cancelButtonTitle: "Cancel",
                                 defaultDate: Date(),
                                 minimumDate: nil, maximumDate: Date(),
                                 datePickerMode: .date) { [unowned self] date in
+                                    
+                                    if date == nil {
+                                        return
+                                    }
+                                    
                                     self.test.date = date
                                     API.check(test: self.test, completion: { [unowned self] _ in
                                         self.navigationController?.popToRootViewController(animated: true)
                                     })
         }
+        
+        
     }
     
 }

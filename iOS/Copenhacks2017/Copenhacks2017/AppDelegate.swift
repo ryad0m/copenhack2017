@@ -16,7 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        OneSignal.initWithLaunchOptions(launchOptions, appId: "260ccee5-d5b0-422a-8192-d85e8be40b57")
+        //OneSignal.initWithLaunchOptions(launchOptions, appId: "260ccee5-d5b0-422a-8192-d85e8be40b57")
+        
+        OneSignal.initWithLaunchOptions(launchOptions,
+                                        appId: "260ccee5-d5b0-422a-8192-d85e8be40b57",
+                                        handleNotificationAction: { (not) in
+            
+                                            NotificationCenter.default.post(name: updateNotification, object: nil)
+                                            
+        },
+                                        settings: [:])
         
         Helper.setupNavBar()
         UINavigationBar.appearance().isTranslucent = false
