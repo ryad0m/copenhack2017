@@ -36,8 +36,9 @@ class SpreadPack:
 					# or if he checked that he doesn't ill he cann't spread it futher
 					continue
 				updated_dated_probabiblity = DatedProbability(
-					dated_probability.date, 
-					dated_probability.probability * FADING_COEFF
+					date=dated_probability.date,
+					end_date=dated_probability.end_date, 
+					probability=dated_probability.probability * FADING_COEFF
 				)
 				if disease_name not in updated_spread_dict:
 					updated_spread_dict[disease_name] = [updated_dated_probabiblity]
@@ -84,7 +85,7 @@ class Person:
 				else:
 					self.disease_probabilities[disease_name] = DatedProbability(check.date, 0.)
 					if disease_name in self.spread_dict:
-						self.spread_dict[spread_name][-1].end_date = check.date
+						self.spread_dict[disease_name][-1].end_date = check.date
 			
 
 	def spread_disease(self, persons_dict):
@@ -131,6 +132,12 @@ class Person:
 								dated_proba, disease_name, multiplier, persons_dict)
 							if new_proba is not None:
 								contact_spread_pack[disease_name].append(new_proba)
+					module_logger.info('{}: contact {} spread pack {}'.format(
+						spread_pack.person.id,
+						contact.partner_id,
+						{k: ['s:{} e:{} p:{}'.format(v.date, v.end_date, v.probability) for v in v_list] 
+							for k, v_list in updated_spread_dict.items()}
+					))
 					persons_quene.append(SpreadPack(
 						persons_dict[contact.partner_id],
 						contact_spread_pack
