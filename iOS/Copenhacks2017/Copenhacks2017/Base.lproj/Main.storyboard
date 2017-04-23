@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stop STI" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v5e-t8-vRq">
-                                <rect key="frame" x="83.5" y="170" width="208.5" height="66"/>
+                                <rect key="frame" x="83.5" y="140" width="208.5" height="66"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="55"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                             <constraint firstItem="v5e-t8-vRq" firstAttribute="centerX" secondItem="wje-it-Jc4" secondAttribute="centerX" id="RmQ-YG-BEm"/>
                             <constraint firstItem="ihu-4W-pjq" firstAttribute="centerX" secondItem="wje-it-Jc4" secondAttribute="centerX" id="TBy-zb-nPI"/>
                             <constraint firstItem="1Yj-uD-FOe" firstAttribute="centerX" secondItem="wje-it-Jc4" secondAttribute="centerX" id="VPW-Ke-sOZ"/>
-                            <constraint firstItem="v5e-t8-vRq" firstAttribute="top" secondItem="sb3-RO-aT5" secondAttribute="bottom" constant="150" id="b06-tf-uCE"/>
+                            <constraint firstItem="v5e-t8-vRq" firstAttribute="top" secondItem="sb3-RO-aT5" secondAttribute="bottom" constant="120" id="b06-tf-uCE"/>
                             <constraint firstItem="7z6-xa-CcC" firstAttribute="top" secondItem="ihu-4W-pjq" secondAttribute="bottom" constant="20" id="lzW-cr-cUp"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
