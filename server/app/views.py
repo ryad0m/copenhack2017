@@ -10,6 +10,36 @@ from .serializers import *
 from .models import *
 
 
+IMAGE_URL = 'https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49'
+MOCK_USERS = [
+    {
+        'fbid': 'user1',
+        'name': 'User 1',
+        'picture': IMAGE_URL,
+    },
+    {
+        'fbid': 'user2',
+        'name': 'User 2',
+        'picture': IMAGE_URL,
+    },
+    {
+        'fbid': 'user3',
+        'name': 'User 3',
+        'picture': IMAGE_URL,
+    },
+    {
+        'fbid': 'user4',
+        'name': 'User 4',
+        'picture': IMAGE_URL,
+    },
+    {
+        'fbid': 'user5',
+        'name': 'User 5',
+        'picture': IMAGE_URL,
+    }
+]
+
+
 class SearchView(APIView):
     def process_list(self, result):
         for user in result:
@@ -37,11 +67,11 @@ class SearchView(APIView):
 
     def get_old(self):
         recent = self.get_recent()
-        return list(recent.values()) + [f for f in self.get_friends() if f['fbid'] not in recent]
+        return MOCK_USERS + list(recent.values()) + [f for f in self.get_friends() if f['fbid'] not in recent]
 
     def search(self, query):
         gapi = get_fb_connection(self.request.user)
-        result = gapi.get_object('search', q=query, type='user', fields='id,name,picture.type(large)')
+        result = gapi.get_object('search', q=query, type='user', fields='id,name,picture.type(large)', limit=1000)
         result = self.process_list(result.get('data', []))
         old = [f for f in self.get_old() if f['name'].lower().find(query.lower()) != -1]
         fbids = set(f['fbid'] for f in old)
