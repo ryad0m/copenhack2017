@@ -1,0 +1,458 @@
+[
+{
+    "model": "app.disease",
+    "pk": 1,
+    "fields": {
+        "name": "Chlamydia",
+        "url": "http://www.ashasexualhealth.org/stdsstis/chlamydia/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 2,
+    "fields": {
+        "name": "Crabs",
+        "url": "http://www.ashasexualhealth.org/stdsstis/crabs/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 3,
+    "fields": {
+        "name": "Gonorrhea",
+        "url": "http://www.ashasexualhealth.org/stdsstis/gonorrhea/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 4,
+    "fields": {
+        "name": "Hepatitis",
+        "url": "http://www.ashasexualhealth.org/stdsstis/hepatitis/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 5,
+    "fields": {
+        "name": "Herpes",
+        "url": "http://www.ashasexualhealth.org/stdsstis/herpes/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 6,
+    "fields": {
+        "name": "HIV",
+        "url": "http://www.ashasexualhealth.org/stdsstis/hiv/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 7,
+    "fields": {
+        "name": "HPV",
+        "url": "http://www.ashasexualhealth.org/stdsstis/hpv/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 8,
+    "fields": {
+        "name": "MGen",
+        "url": "http://www.ashasexualhealth.org/sti-youve-probably-never-heard/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 9,
+    "fields": {
+        "name": "Molluscum",
+        "url": "http://www.ashasexualhealth.org/stdsstis/molluscum-contagiosum/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 10,
+    "fields": {
+        "name": "NGU",
+        "url": "http://www.ashasexualhealth.org/stdsstis/ngu/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 11,
+    "fields": {
+        "name": "PID",
+        "url": "http://www.ashasexualhealth.org/stdsstis/pid/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 12,
+    "fields": {
+        "name": "Scabies",
+        "url": "http://www.ashasexualhealth.org/stdsstis/scabies/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 13,
+    "fields": {
+        "name": "Syphilis",
+        "url": "http://www.ashasexualhealth.org/stdsstis/syphilis/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 14,
+    "fields": {
+        "name": "Trichomoniasis",
+        "url": "http://www.ashasexualhealth.org/stdsstis/trichomoniasis/"
+    }
+},
+{
+    "model": "app.disease",
+    "pk": 15,
+    "fields": {
+        "name": "Vaginitis",
+        "url": "http://www.ashasexualhealth.org/stdsstis/vaginitis/"
+    }
+},
+{
+    "model": "app.perepihon",
+    "pk": 1,
+    "fields": {
+        "author": 4,
+        "name": "User 2",
+        "fbid": "user2",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "start": "2017-04-01",
+        "end": "2017-04-01",
+        "condom": false
+    }
+},
+{
+    "model": "app.perepihon",
+    "pk": 2,
+    "fields": {
+        "author": 5,
+        "name": "User 3",
+        "fbid": "user3",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "start": "2017-04-02",
+        "end": "2017-04-02",
+        "condom": false
+    }
+},
+{
+    "model": "app.perepihon",
+    "pk": 3,
+    "fields": {
+        "author": 6,
+        "name": "User 4",
+        "fbid": "user4",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "start": "2017-04-04",
+        "end": "2017-04-04",
+        "condom": true
+    }
+},
+{
+    "model": "app.perepihon",
+    "pk": 4,
+    "fields": {
+        "author": 7,
+        "name": "User 5",
+        "fbid": "user5",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "start": "2017-04-06",
+        "end": "2017-04-06",
+        "condom": true
+    }
+},
+{
+    "model": "app.check",
+    "pk": 1,
+    "fields": {
+        "author": 4,
+        "date": "2017-04-01",
+        "is_clean": false,
+        "diseases": [
+            1
+        ]
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$TwGiwjm3679u$OFge8bgXwMSLFY161TQKfy5BHH8lMeKkhCc7R2Rx3EA=",
+        "last_login": "2017-04-23T07:45:22.327Z",
+        "is_superuser": true,
+        "username": "ryadom",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:43:29.734Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "!qs1x0DkBKRtXHg0B80laQ3zyODHwozH9jvHUzFKK",
+        "last_login": "2017-04-23T07:44:33.638Z",
+        "is_superuser": false,
+        "username": "MarkRiabov",
+        "first_name": "Mark",
+        "last_name": "Riabov",
+        "email": "mir@epage.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:44:33.597Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "!Aog1IDwstoRmujL4AiJt2HMS0EVVcmWzOvk7L32m",
+        "last_login": "2017-04-23T07:44:58.494Z",
+        "is_superuser": false,
+        "username": "AlexanderDanilyak",
+        "first_name": "Alexander",
+        "last_name": "Danilyak",
+        "email": "adanilyak@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:44:58.458Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "!lfpqIBtMcJkfbfArfDrnxhejoCq7pF57v0J6easm",
+        "last_login": "2017-04-23T07:45:15.846Z",
+        "is_superuser": false,
+        "username": "MariaSandrikova",
+        "first_name": "Maria",
+        "last_name": "Sandrikova",
+        "email": "mashasandrikova@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:45:15.807Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$g0ajJn3mKkNX$jgbeVrRqB///D4dtE98APhpruvT8Oy0fcIYpIyGYZWg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user1",
+        "first_name": "User",
+        "last_name": "1",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:46:20Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$9S6AQ7wD0PCl$piTHGwZszjoO/kLu8Ou1BuVlPsjgQHF1zWC5/epaZ9E=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user2",
+        "first_name": "User",
+        "last_name": "2",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:47:13Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$MNZE6c1R9ePP$NiuFjLp0kBy9zzmBTW0NAk3TD2DvzqSX/Xcbg5tMH1E=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user3",
+        "first_name": "User",
+        "last_name": "3",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:47:40Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$8SfA7LvpQPnz$Gju00+V5856Okp9Yt4WelhehNbmKKyAfcrzKdxUBXnQ=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user4",
+        "first_name": "User",
+        "last_name": "4",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:48:01Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$36000$0yZ0gNZSFDi4$XRoL0PHrh/OnikdCjQFhxzT/+5JXZ6EZ/hjq7jMrxwM=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user5",
+        "first_name": "User",
+        "last_name": "5",
+        "email": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2017-04-23T07:48:22Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "social_django.usersocialauth",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "provider": "facebook",
+        "uid": "1304026046348394",
+        "extra_data": "{\"token_type\": null, \"id\": \"1304026046348394\", \"granted_scopes\": [\"user_friends\", \"email\", \"public_profile\"], \"expires\": 5116154, \"denied_scopes\": null, \"access_token\": \"EAAD8LGKU2BMBAFJ5CwPCb1SxLVrnZB6ge3AAD7ZBGnJ5VtQIJf9XmiypGVBnQaZBCifAD9hGL3mZBUbkLGMz82d2b9ms2ZCbyawNC4gyZAqZC386hl60dUB0CynPg1Sns7FhozRTDw1XgOaq1oQdqRp9uJIuivI5eJymRtQZB13uagZDZD\", \"auth_time\": 1492933473}"
+    }
+},
+{
+    "model": "social_django.usersocialauth",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "provider": "facebook",
+        "uid": "1212238155568953",
+        "extra_data": "{\"token_type\": null, \"id\": \"1212238155568953\", \"granted_scopes\": [\"user_friends\", \"email\", \"public_profile\"], \"expires\": 5116788, \"denied_scopes\": null, \"access_token\": \"EAAD8LGKU2BMBANt2rvQKjgRREUQEVZAZCH77PopZBMOVaj3CEmZCpoLZBFQCZAuZCHasVzyDjVZBZC7npI8yoal2XZCrbfcd8P0D83zWS9IPtYztcJGFP910bJesYcQbu1ZBEGlu8yCa1ZAwFaMxpv8njtTujWXF1JG2kkRFeZAeCxMCHUgZDZD\", \"auth_time\": 1492933498}"
+    }
+},
+{
+    "model": "social_django.usersocialauth",
+    "pk": 3,
+    "fields": {
+        "user": 4,
+        "provider": "facebook",
+        "uid": "878982572242596",
+        "extra_data": "{\"token_type\": null, \"id\": \"878982572242596\", \"granted_scopes\": [\"user_friends\", \"email\", \"public_profile\"], \"expires\": 5183999, \"denied_scopes\": null, \"access_token\": \"EAAD8LGKU2BMBAMw1gbfVUY1GW1vhpoPzm9hEo4kOXNnbb8DZAfz0LVpzfZAGKVJqcSv2keMkGmTeBTKMryZCZBTjRLZAieEfir3BSO1qAqnlX9qsMd6GRl8HQ6OAMQEVtKa901yID05Je2sNUPqtYW4vWoVA0cTQZD\", \"auth_time\": 1492933515}"
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 1,
+    "fields": {
+        "user": 2,
+        "fbid": "1304026046348394",
+        "picture": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12809802_952230144861321_6005931935088477671_n.jpg?oh=3a1a35b4bd6c7ec18c765d6669b7aace&oe=594C5F7C",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 2,
+    "fields": {
+        "user": 3,
+        "fbid": "1212238155568953",
+        "picture": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/15242009_1080108092115294_7328775340018030630_n.jpg?oh=04b26253ae47721dc168f01790a97376&oe=5977DBBD",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 3,
+    "fields": {
+        "user": 4,
+        "fbid": "878982572242596",
+        "picture": "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/11913507_595576287249894_8892728549042256400_n.jpg?oh=f1dc5d6f719b013fa09f2d1505275b40&oe=5974D2DA",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 4,
+    "fields": {
+        "user": 5,
+        "fbid": "user1",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 5,
+    "fields": {
+        "user": 6,
+        "fbid": "user2",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 6,
+    "fields": {
+        "user": 7,
+        "fbid": "user3",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 7,
+    "fields": {
+        "user": 8,
+        "fbid": "user4",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "playerid": null
+    }
+},
+{
+    "model": "app.profile",
+    "pk": 8,
+    "fields": {
+        "user": 9,
+        "fbid": "user5",
+        "picture": "https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/c47.0.160.160/p160x160/10354686_10150004552801856_220367501106153455_n.jpg?oh=620a81f9d346415ad4aa47d56264a7c2&oe=59935B49",
+        "playerid": null
+    }
+}
+]
