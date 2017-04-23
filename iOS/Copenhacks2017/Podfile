@@ -9,4 +9,9 @@ target ‘Copenhacks2017’ do
     pod 'Hero'
     pod 'SwipeCellKit'
     pod 'DatePickerDialog'
+    pod 'OneSignal'
+end
+
+target 'CHNotifications' do
+	pod 'OneSignal'
 end

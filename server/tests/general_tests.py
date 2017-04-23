@@ -1,5 +1,6 @@
 #####
 # Author: Maria Sandrikova
+# Description: General tests for algorithm
 # Copyright 2017
 #####
 
@@ -77,9 +78,35 @@ class GeneralTestSuite(unittest.TestCase):
             DISEASES_NAMES
         ))
         runner = Runner(persons)
-        runner.run()
         self.save_in_file(runner.get_probabilities(), 'simple_chain.txt')
 
+
+    def test_condom_use(self):
+        persons = []
+        persons.append(Person(
+            'Helen',
+            [
+                Contact('Max', date(2016, 1, 24), condom_was_used=True)
+            ],
+            {
+                'AIDS': [Check(date(2016, 2, 10), True)],
+                'Gonorrhea': [], 'HIV': []
+            },
+            DISEASES_NAMES
+        ))
+        persons.append(Person(
+            'Max',
+            [
+                Contact('Helen', date(2016, 1, 24), condom_was_used=True),
+            ],
+            {
+                'AIDS': [], 'Gonorrhea': [], 'HIV': []
+            },
+            DISEASES_NAMES
+        ))
+        runner = Runner(persons)
+        self.save_in_file(runner.get_probabilities(), 'test_condom_use.txt')
+        self.assertTrue(False)
 
 
 

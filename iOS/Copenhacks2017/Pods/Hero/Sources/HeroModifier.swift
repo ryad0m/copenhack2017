@@ -22,7 +22,7 @@
 
 import UIKit
 
-public class HeroModifier {
+public final class HeroModifier {
   internal let apply:(inout HeroTargetState) -> Void
   public init(applyFunction:@escaping (inout HeroTargetState) -> Void) {
     apply = applyFunction
@@ -36,6 +36,24 @@ extension HeroModifier {
    */
   public static var fade = HeroModifier { targetState in
     targetState.opacity = 0
+  }
+
+  /**
+   Set the opacity for the view to animate from/to.
+   - Parameters:
+   - opacity: opacity for the view to animate from/to
+   */
+  public static func opacity(_ opacity: Float) -> HeroModifier {
+    return HeroModifier { targetState in
+      targetState.opacity = opacity
+    }
+  }
+
+  /**
+   Force don't fade view during transition
+   */
+  public static var forceNonFade = HeroModifier { targetState in
+    targetState.nonFade = true
   }
 
   /**
@@ -168,6 +186,17 @@ extension HeroModifier {
   }
 
   /**
+   Set the backgroundColor for the view to animate from/to.
+   - Parameters:
+   - backgroundColor: backgroundColor for the view to animate from/to
+   */
+  public static func backgroundColor(_ backgroundColor: UIColor) -> HeroModifier {
+    return HeroModifier { targetState in
+      targetState.backgroundColor = backgroundColor.cgColor
+    }
+  }
+
+  /**
    Set the cornerRadius for the view to animate from/to.
    - Parameters:
      - cornerRadius: cornerRadius for the view to animate from/to
@@ -186,6 +215,28 @@ extension HeroModifier {
   public static func zPosition(_ zPosition: CGFloat) -> HeroModifier {
     return HeroModifier { targetState in
       targetState.zPosition = zPosition
+    }
+  }
+
+  /**
+   Set the contentsRect for the view to animate from/to.
+   - Parameters:
+   - contentsRect: contentsRect for the view to animate from/to
+   */
+  public static func contentsRect(_ contentsRect: CGRect) -> HeroModifier {
+    return HeroModifier { targetState in
+      targetState.contentsRect = contentsRect
+    }
+  }
+
+  /**
+   Set the contentsScale for the view to animate from/to.
+   - Parameters:
+   - contentsScale: contentsScale for the view to animate from/to
+   */
+  public static func contentsScale(_ contentsScale: CGFloat) -> HeroModifier {
+    return HeroModifier { targetState in
+      targetState.contentsScale = contentsScale
     }
   }
 
@@ -467,6 +518,13 @@ extension HeroModifier {
   }
 
   /**
+   Use same parent coordinate space.
+   */
+  public static var useSameParentCoordinateSpace: HeroModifier = HeroModifier { targetState in
+    targetState.coordinateSpace = .sameParent
+  }
+
+  /**
    ignore all heroModifiers attributes for a view's direct subviews.
    */
   public static var ignoreSubviewModifiers: HeroModifier = .ignoreSubviewModifiers()
@@ -516,6 +574,13 @@ extension HeroModifier {
    */
   public static var useNoSnapshot: HeroModifier = HeroModifier { targetState in
     targetState.snapshotType = .noSnapshot
+  }
+
+  /**
+   Force the view to animate (Hero will create animation context & snapshots for them, so that they can be interact)
+   */
+  public static var forceAnimate = HeroModifier { targetState in
+    targetState.forceAnimate = true
   }
 
   /**

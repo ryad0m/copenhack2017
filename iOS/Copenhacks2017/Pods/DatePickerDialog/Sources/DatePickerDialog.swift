@@ -12,7 +12,7 @@ public class DatePickerDialog: UIView {
     // MARK: - Constants
     private let kDatePickerDialogDefaultButtonHeight:       CGFloat = 50
     private let kDatePickerDialogDefaultButtonSpacerHeight: CGFloat = 1
-    private let kDatePickerDialogCornerRadius:              CGFloat = 7
+    private let kDatePickerDialogCornerRadius:              CGFloat = 13
     private let kDatePickerDialogDoneButtonTag:             Int     = 1
 
     // MARK: - Views

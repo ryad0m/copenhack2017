@@ -1,11 +1,12 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage" "$PODS_CONFIGURATION_BUILD_DIR/DatePickerDialog" "$PODS_CONFIGURATION_BUILD_DIR/Hero" "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON" "$PODS_CONFIGURATION_BUILD_DIR/SwipeCellKit"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Alamofire" "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage" "$PODS_CONFIGURATION_BUILD_DIR/DatePickerDialog" "$PODS_CONFIGURATION_BUILD_DIR/Hero" "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON" "$PODS_CONFIGURATION_BUILD_DIR/SwipeCellKit" "${PODS_ROOT}/OneSignal/iOS_SDK/OneSignalSDK/Framework"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/OneSignal"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage/AlamofireImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/DatePickerDialog/DatePickerDialog.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Hero/Hero.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON/SwiftyJSON.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwipeCellKit/SwipeCellKit.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "AlamofireImage" -framework "DatePickerDialog" -framework "Hero" -framework "SwiftyJSON" -framework "SwipeCellKit"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Alamofire/Alamofire.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/AlamofireImage/AlamofireImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/DatePickerDialog/DatePickerDialog.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Hero/Hero.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwiftyJSON/SwiftyJSON.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwipeCellKit/SwipeCellKit.framework/Headers" -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/OneSignal"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "Alamofire" -framework "AlamofireImage" -framework "DatePickerDialog" -framework "Hero" -framework "OneSignal" -framework "SwiftyJSON" -framework "SwipeCellKit" -framework "SystemConfiguration" -framework "UIKit" -framework "UserNotifications"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods

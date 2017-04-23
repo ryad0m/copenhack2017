@@ -38,6 +38,28 @@ public protocol SwipeTableViewCellDelegate: class {
      - note: If not implemented, a default `SwipeTableOptions` instance is used.
      */
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions
+    
+    /**
+     Tells the delegate that the table view is about to go into editing mode.
+
+     - parameter tableView: The table view object providing this information.
+     
+     - parameter indexPath: The index path of the row.
+     
+     - parameter orientation: The side of the cell.
+    */
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation)
+
+    /**
+     Tells the delegate that the table view has left editing mode.
+     
+     - parameter tableView: The table view object providing this information.
+     
+     - parameter indexPath: The index path of the row.
+     
+     - parameter orientation: The side of the cell.
+     */
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation)
 }
 
 /**
@@ -47,4 +69,8 @@ public extension SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
         return SwipeTableOptions()
     }
+    
+    func tableView(_ tableView: UITableView, willBeginEditingRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) {}
+    
+    func tableView(_ tableView: UITableView, didEndEditingRowAt indexPath: IndexPath?, for orientation: SwipeActionsOrientation) {}
 }

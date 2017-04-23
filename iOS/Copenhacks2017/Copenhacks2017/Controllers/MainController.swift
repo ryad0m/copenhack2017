@@ -13,7 +13,7 @@ class MainController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var sections: [[Any]] = []
+    var sections: [[Any?]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,20 +23,18 @@ class MainController: UIViewController {
         
         collectionView.contentInset = UIEdgeInsetsMake(7.5, 0.0, 0.0, 0.0)
         
-        if !AuthModel.shared.isSignedIn {
-            openSignIn()
-        }
-        
-        sections = [[Test.Result.negative, Test.Result.positive],
+        sections = [[nil],
+                    [Test.Result.negative, Test.Result.positive],
                     [Test.Result.additional]]
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        
+        if !AuthModel.shared.isSignedIn {
+            openSignIn()
+        } else {
+            updateMe()
+        }
     }
     
     func openSignIn(animated: Bool = false) {
@@ -47,6 +45,27 @@ class MainController: UIViewController {
     @IBAction func onLogOut(_ sender: Any) {
         AuthModel.shared.clear()
         openSignIn(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toInfections" {
+            let result = sender as! Test.Result
+            (segue.destination as! ChoseInfectionsController).type = result
+        } else if segue.identifier == "toMe" {
+            (segue.destination as! MeController).me = (sender as! MeModel)
+        }
+    }
+    
+    func updateMe() {
+        if let cell = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? MainMeCell {
+            cell.start()
+        }
+        
+        API.me(completion: { [unowned self] json in
+            let me = MeModel(with: json)
+            self.sections[0] = [me]
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        })
     }
     
 }
@@ -64,14 +83,29 @@ extension MainController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch indexPath.section {
-        case 0,1:
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainMeCell", for: indexPath) as! MainMeCell
+            
+            if sections[indexPath.section][indexPath.row] != nil {
+                cell.configure(with: sections[indexPath.section][indexPath.row] as! MeModel)
+                cell.isUserInteractionEnabled = true
+            } else {
+                cell.start()
+                cell.isUserInteractionEnabled = true
+            }
+            
+            return cell
+            
+        case 1,2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mainSmallCell", for: indexPath) as! MainSmallCell
             
             cell.configure(for: sections[indexPath.section][indexPath.row] as! Test.Result)
             
             switch (indexPath.section, indexPath.row) {
-            case (1,0):
+            case (2,0):
                 cell.heroID = "searchBack"
+            case (1,0),(1,1):
+                cell.heroID = (sections[indexPath.section][indexPath.row] as! Test.Result).heroID
             default:
                 break
             }
@@ -84,7 +118,9 @@ extension MainController: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        Helper.createGradientOnView(view: cell, colors: (sections[indexPath.section][indexPath.row] as! Test.Result).colors())
+        if indexPath.section != 0 {
+            Helper.createGradientOnView(view: cell, colors: (sections[indexPath.section][indexPath.row] as! Test.Result).colors())
+        }
         cell.layer.cornerRadius = 13.0
         cell.layer.masksToBounds = true
     }
@@ -92,8 +128,18 @@ extension MainController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            break
+            performSegue(withIdentifier: "toMe", sender: sections[indexPath.section][indexPath.row])
+            
         case 1:
+            
+            switch indexPath.row {
+            case 0,1:
+                performSegue(withIdentifier: "toInfections", sender: sections[indexPath.section][indexPath.row])
+            default:
+                break
+            }
+            
+        case 2:
             performSegue(withIdentifier: "toSearch", sender: nil)
         default:
             break
@@ -120,9 +166,12 @@ extension MainController: UICollectionViewDelegateFlowLayout {
         
         switch indexPath.section {
         case 0:
+            return CGSize(width: (UIScreen.main.bounds.width - 30.0),
+                          height: (UIScreen.main.bounds.width - 45.0) / 2.5)
+        case 1:
             return CGSize(width: (UIScreen.main.bounds.width - 45.0) / 2.0,
                           height: (UIScreen.main.bounds.width - 45.0) / 1.5)
-        case 1:
+        case 2:
             return CGSize(width: (UIScreen.main.bounds.width - 30.0),
                           height: (UIScreen.main.bounds.width - 45.0) / 2.5)
         default:

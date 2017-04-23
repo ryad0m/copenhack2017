@@ -7,9 +7,28 @@
 //
 
 import Foundation
+import SwiftyJSON
 
-struct Infection {
+struct InfectionModel {
+
+    var id: String
+    var name: String
+    var include: Bool
+    var url: URL?
     
-    var title: String
+    init(with json: JSON) {
+        id = json["id"].stringValue
+        name = json["name"].stringValue
+        url = URL(string: json["url"].stringValue)
+        include = false
+    }
     
+}
+
+func parseInfections(json: JSON) -> [InfectionModel] {
+    var infections: [InfectionModel] = []
+    for infectionsJson in json.arrayValue {
+        infections.append(InfectionModel(with: infectionsJson))
+    }
+    return infections
 }

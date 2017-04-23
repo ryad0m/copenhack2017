@@ -5,15 +5,6 @@
 #####
 
 
-class Disease:
-
-	def __init__(self, name, incubation_period):
-		# Name of disease
-		self.name = name
-		# Incubation period of disease in days
-		self.incubation_period = incubation_period
-
-
 class Check:
 
 	def __init__(self, date, is_positive):
@@ -25,12 +16,12 @@ class Check:
 
 class DatedProbability:
 
-	def __init__(self, date=None, probability=.0):
+	def __init__(self, date=None, probability=.0, end_date=None):
 		# Date of check from which we get probability
 		# or None if we have no signal about that disease
 		self.date = date
 		# Date when person verified that he hasn't this disease
-		self.end_date = None
+		self.end_date = end_date
 		# Probability
 		self.probability = probability
 

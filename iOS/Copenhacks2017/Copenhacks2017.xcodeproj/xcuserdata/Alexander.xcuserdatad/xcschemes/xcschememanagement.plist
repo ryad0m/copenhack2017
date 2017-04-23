@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CHNotifications.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>Copenhacks2017.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +18,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>11DEA6F41EAB736A00F2106A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11F986C91EAC4A19006AB9D0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,38 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Copenhacks2017/API/API.swift"
-            timestampString = "514571880.721585"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "signIn()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Copenhacks2017/AppDelegate.swift"
-            timestampString = "514585929.682556"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "application(_:handleOpen:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Copenhacks2017/Views/Search Cell.swift"
             timestampString = "514576563.725604"
             startingColumnNumber = "9223372036854775807"
@@ -74,7 +42,7 @@
                   moduleName = "Copenhacks2017"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Alexander/Documents/Copenhacks2017/iOS/Copenhacks2017/Copenhacks2017/API/API.swift"
-                  timestampString = "514590359.992387"
+                  timestampString = "514612919.609956"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "41"
@@ -89,7 +57,7 @@
                   moduleName = "Copenhacks2017"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Alexander/Documents/Copenhacks2017/iOS/Copenhacks2017/Copenhacks2017/API/API.swift"
-                  timestampString = "514590359.99435"
+                  timestampString = "514612919.611671"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "41"
@@ -128,6 +96,38 @@
             startingLineNumber = "77"
             endingLineNumber = "77"
             landmarkName = "onAdd(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Copenhacks2017/Controllers/SignInController.swift"
+            timestampString = "514610462.617449"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "onResult(notification:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Copenhacks2017/Controllers/SignInController.swift"
+            timestampString = "514610683.220465"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "onResult(notification:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

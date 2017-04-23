@@ -26,8 +26,42 @@
 		11F986A31EABD864006AB9D0 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986A21EABD864006AB9D0 /* DateCell.swift */; };
 		11F986A51EABDB9A006AB9D0 /* AddConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986A41EABDB9A006AB9D0 /* AddConnectionController.swift */; };
 		11F986A71EABFF53006AB9D0 /* CondomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986A61EABFF53006AB9D0 /* CondomCell.swift */; };
+		11F986A91EAC09B0006AB9D0 /* ChoseInfectionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986A81EAC09B0006AB9D0 /* ChoseInfectionsController.swift */; };
+		11F986AB1EAC1474006AB9D0 /* InfectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986AA1EAC1474006AB9D0 /* InfectionCell.swift */; };
+		11F986AD1EAC29B3006AB9D0 /* MainMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986AC1EAC29B3006AB9D0 /* MainMeCell.swift */; };
+		11F986AF1EAC2B24006AB9D0 /* MeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986AE1EAC2B24006AB9D0 /* MeModel.swift */; };
+		11F986B11EAC3BF5006AB9D0 /* InfectionMeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986B01EAC3BF5006AB9D0 /* InfectionMeCell.swift */; };
+		11F986B31EAC3CA4006AB9D0 /* MeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986B21EAC3CA4006AB9D0 /* MeController.swift */; };
+		11F986B51EAC44E6006AB9D0 /* WebController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986B41EAC44E6006AB9D0 /* WebController.swift */; };
+		11F986CD1EAC4A19006AB9D0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F986CC1EAC4A19006AB9D0 /* NotificationService.swift */; };
+		11F986D11EAC4A19006AB9D0 /* CHNotifications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 11F986CA1EAC4A19006AB9D0 /* CHNotifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		850B527B7C110BB93D1DCFAB /* Pods_CHNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8327E794FB7B4CA487D2BAAC /* Pods_CHNotifications.framework */; };
 		9589A3640560AA96C6AD14C7 /* Pods_Copenhacks2017.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 258873E17B91817A67C53428 /* Pods_Copenhacks2017.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		11F986CF1EAC4A19006AB9D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11DEA6ED1EAB736A00F2106A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11F986C91EAC4A19006AB9D0;
+			remoteInfo = CHNotifications;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		11F986D51EAC4A19006AB9D0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				11F986D11EAC4A19006AB9D0 /* CHNotifications.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11DEA6F51EAB736A00F2106A /* Copenhacks2017.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Copenhacks2017.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,9 +85,24 @@
 		11F986A21EABD864006AB9D0 /* DateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateCell.swift; path = Views/DateCell.swift; sourceTree = "<group>"; };
 		11F986A41EABDB9A006AB9D0 /* AddConnectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddConnectionController.swift; path = Controllers/AddConnectionController.swift; sourceTree = "<group>"; };
 		11F986A61EABFF53006AB9D0 /* CondomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CondomCell.swift; path = Views/CondomCell.swift; sourceTree = "<group>"; };
+		11F986A81EAC09B0006AB9D0 /* ChoseInfectionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChoseInfectionsController.swift; path = Controllers/ChoseInfectionsController.swift; sourceTree = "<group>"; };
+		11F986AA1EAC1474006AB9D0 /* InfectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfectionCell.swift; path = Views/InfectionCell.swift; sourceTree = "<group>"; };
+		11F986AC1EAC29B3006AB9D0 /* MainMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainMeCell.swift; path = Views/MainMeCell.swift; sourceTree = "<group>"; };
+		11F986AE1EAC2B24006AB9D0 /* MeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeModel.swift; path = Models/MeModel.swift; sourceTree = "<group>"; };
+		11F986B01EAC3BF5006AB9D0 /* InfectionMeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfectionMeCell.swift; path = Views/InfectionMeCell.swift; sourceTree = "<group>"; };
+		11F986B21EAC3CA4006AB9D0 /* MeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MeController.swift; path = Controllers/MeController.swift; sourceTree = "<group>"; };
+		11F986B41EAC44E6006AB9D0 /* WebController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebController.swift; path = Controllers/WebController.swift; sourceTree = "<group>"; };
+		11F986CA1EAC4A19006AB9D0 /* CHNotifications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CHNotifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		11F986CC1EAC4A19006AB9D0 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		11F986CE1EAC4A19006AB9D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11F986D61EAC4AE2006AB9D0 /* CHNotifications.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CHNotifications.entitlements; sourceTree = "<group>"; };
+		11F986D71EAC4B0B006AB9D0 /* Copenhacks2017.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Copenhacks2017.entitlements; sourceTree = "<group>"; };
 		258873E17B91817A67C53428 /* Pods_Copenhacks2017.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Copenhacks2017.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		364D10998468359E1283D332 /* Pods-Copenhacks2017.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Copenhacks2017.release.xcconfig"; path = "Pods/Target Support Files/Pods-Copenhacks2017/Pods-Copenhacks2017.release.xcconfig"; sourceTree = "<group>"; };
+		4FB51BA463B3AD7B6C6273CF /* Pods-CHNotifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHNotifications.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CHNotifications/Pods-CHNotifications.debug.xcconfig"; sourceTree = "<group>"; };
+		8327E794FB7B4CA487D2BAAC /* Pods_CHNotifications.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CHNotifications.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88EF4ABEDF30623A8CE66FAA /* Pods-Copenhacks2017.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Copenhacks2017.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Copenhacks2017/Pods-Copenhacks2017.debug.xcconfig"; sourceTree = "<group>"; };
+		9D2A52AD990093E5B5FCE93C /* Pods-CHNotifications.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CHNotifications.release.xcconfig"; path = "Pods/Target Support Files/Pods-CHNotifications/Pods-CHNotifications.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +114,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		11F986C71EAC4A19006AB9D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				850B527B7C110BB93D1DCFAB /* Pods_CHNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				11DEA6F71EAB736A00F2106A /* Copenhacks2017 */,
+				11F986CB1EAC4A19006AB9D0 /* CHNotifications */,
 				11DEA6F61EAB736A00F2106A /* Products */,
 				18F0E1D8ED70B36839EEEA1E /* Pods */,
 				66C6D5426557AC2B710094DD /* Frameworks */,
@@ -82,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				11DEA6F51EAB736A00F2106A /* Copenhacks2017.app */,
+				11F986CA1EAC4A19006AB9D0 /* CHNotifications.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +148,7 @@
 		11DEA6F71EAB736A00F2106A /* Copenhacks2017 */ = {
 			isa = PBXGroup;
 			children = (
+				11F986D71EAC4B0B006AB9D0 /* Copenhacks2017.entitlements */,
 				11F986971EAB9A7B006AB9D0 /* View */,
 				11F986941EAB85AD006AB9D0 /* Helpers */,
 				11F9868D1EAB7B80006AB9D0 /* Models */,
@@ -127,6 +187,9 @@
 				11F986901EAB8437006AB9D0 /* MainController.swift */,
 				11F9869C1EABB685006AB9D0 /* SearchController.swift */,
 				11F986A41EABDB9A006AB9D0 /* AddConnectionController.swift */,
+				11F986A81EAC09B0006AB9D0 /* ChoseInfectionsController.swift */,
+				11F986B21EAC3CA4006AB9D0 /* MeController.swift */,
+				11F986B41EAC44E6006AB9D0 /* WebController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -138,6 +201,7 @@
 				11F986981EABA3D3006AB9D0 /* TestModel.swift */,
 				11F9869A1EABA479006AB9D0 /* InfectionModel.swift */,
 				11F986A01EABB83A006AB9D0 /* UserModel.swift */,
+				11F986AE1EAC2B24006AB9D0 /* MeModel.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -157,8 +221,21 @@
 				11F9869E1EABB69C006AB9D0 /* SearchCell.swift */,
 				11F986A21EABD864006AB9D0 /* DateCell.swift */,
 				11F986A61EABFF53006AB9D0 /* CondomCell.swift */,
+				11F986AA1EAC1474006AB9D0 /* InfectionCell.swift */,
+				11F986AC1EAC29B3006AB9D0 /* MainMeCell.swift */,
+				11F986B01EAC3BF5006AB9D0 /* InfectionMeCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		11F986CB1EAC4A19006AB9D0 /* CHNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				11F986D61EAC4AE2006AB9D0 /* CHNotifications.entitlements */,
+				11F986CC1EAC4A19006AB9D0 /* NotificationService.swift */,
+				11F986CE1EAC4A19006AB9D0 /* Info.plist */,
+			);
+			path = CHNotifications;
 			sourceTree = "<group>";
 		};
 		18F0E1D8ED70B36839EEEA1E /* Pods */ = {
@@ -166,6 +243,8 @@
 			children = (
 				88EF4ABEDF30623A8CE66FAA /* Pods-Copenhacks2017.debug.xcconfig */,
 				364D10998468359E1283D332 /* Pods-Copenhacks2017.release.xcconfig */,
+				4FB51BA463B3AD7B6C6273CF /* Pods-CHNotifications.debug.xcconfig */,
+				9D2A52AD990093E5B5FCE93C /* Pods-CHNotifications.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -174,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				258873E17B91817A67C53428 /* Pods_Copenhacks2017.framework */,
+				8327E794FB7B4CA487D2BAAC /* Pods_CHNotifications.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,15 +271,36 @@
 				11DEA6F31EAB736A00F2106A /* Resources */,
 				D257D4532DA85B16314F7CD3 /* [CP] Embed Pods Frameworks */,
 				FF3566325D14F7E0B9967DBA /* [CP] Copy Pods Resources */,
+				11F986D51EAC4A19006AB9D0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				11F986D01EAC4A19006AB9D0 /* PBXTargetDependency */,
 			);
 			name = Copenhacks2017;
 			productName = Copenhacks2017;
 			productReference = 11DEA6F51EAB736A00F2106A /* Copenhacks2017.app */;
 			productType = "com.apple.product-type.application";
+		};
+		11F986C91EAC4A19006AB9D0 /* CHNotifications */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11F986D41EAC4A19006AB9D0 /* Build configuration list for PBXNativeTarget "CHNotifications" */;
+			buildPhases = (
+				173AC594090B00DCBF7A30C0 /* [CP] Check Pods Manifest.lock */,
+				11F986C61EAC4A19006AB9D0 /* Sources */,
+				11F986C71EAC4A19006AB9D0 /* Frameworks */,
+				11F986C81EAC4A19006AB9D0 /* Resources */,
+				3251B0A03716D75FF447FAB7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CHNotifications;
+			productName = CHNotifications;
+			productReference = 11F986CA1EAC4A19006AB9D0 /* CHNotifications.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -215,6 +316,24 @@
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = XBBK9UCLZS;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					11F986C91EAC4A19006AB9D0 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = XBBK9UCLZS;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -232,6 +351,7 @@
 			projectRoot = "";
 			targets = (
 				11DEA6F41EAB736A00F2106A /* Copenhacks2017 */,
+				11F986C91EAC4A19006AB9D0 /* CHNotifications */,
 			);
 		};
 /* End PBXProject section */
@@ -247,9 +367,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		11F986C81EAC4A19006AB9D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		173AC594090B00DCBF7A30C0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		3251B0A03716D75FF447FAB7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CHNotifications/Pods-CHNotifications-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C4F43EBCFDF933033B979239 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -262,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D257D4532DA85B16314F7CD3 /* [CP] Embed Pods Frameworks */ = {
@@ -305,10 +462,14 @@
 				11F986881EAB7925006AB9D0 /* SignInController.swift in Sources */,
 				11F9869B1EABA479006AB9D0 /* InfectionModel.swift in Sources */,
 				11F986931EAB85A7006AB9D0 /* Helper.swift in Sources */,
+				11F986AD1EAC29B3006AB9D0 /* MainMeCell.swift in Sources */,
 				11F9868C1EAB7B7E006AB9D0 /* AuthModel.swift in Sources */,
 				11F986991EABA3D3006AB9D0 /* TestModel.swift in Sources */,
 				11F986A11EABB83A006AB9D0 /* UserModel.swift in Sources */,
+				11F986AF1EAC2B24006AB9D0 /* MeModel.swift in Sources */,
 				11F986851EAB78C9006AB9D0 /* API.swift in Sources */,
+				11F986B31EAC3CA4006AB9D0 /* MeController.swift in Sources */,
+				11F986B11EAC3BF5006AB9D0 /* InfectionMeCell.swift in Sources */,
 				11F986961EAB9A76006AB9D0 /* MainSmallCell.swift in Sources */,
 				11F9868F1EAB7F11006AB9D0 /* OpenUrlParser.swift in Sources */,
 				11F986A31EABD864006AB9D0 /* DateCell.swift in Sources */,
@@ -316,12 +477,31 @@
 				11F986A71EABFF53006AB9D0 /* CondomCell.swift in Sources */,
 				11F9869D1EABB685006AB9D0 /* SearchController.swift in Sources */,
 				11F986911EAB8437006AB9D0 /* MainController.swift in Sources */,
+				11F986A91EAC09B0006AB9D0 /* ChoseInfectionsController.swift in Sources */,
+				11F986AB1EAC1474006AB9D0 /* InfectionCell.swift in Sources */,
 				11F9869F1EABB69C006AB9D0 /* SearchCell.swift in Sources */,
 				11DEA6F91EAB736A00F2106A /* AppDelegate.swift in Sources */,
+				11F986B51EAC44E6006AB9D0 /* WebController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11F986C61EAC4A19006AB9D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11F986CD1EAC4A19006AB9D0 /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		11F986D01EAC4A19006AB9D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11F986C91EAC4A19006AB9D0 /* CHNotifications */;
+			targetProxy = 11F986CF1EAC4A19006AB9D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		11DEA6FC1EAB736A00F2106A /* Main.storyboard */ = {
@@ -440,7 +620,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 88EF4ABEDF30623A8CE66FAA /* Pods-Copenhacks2017.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Copenhacks2017/Copenhacks2017.entitlements;
 				DEVELOPMENT_TEAM = XBBK9UCLZS;
 				INFOPLIST_FILE = Copenhacks2017/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -454,12 +636,42 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 364D10998468359E1283D332 /* Pods-Copenhacks2017.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Copenhacks2017/Copenhacks2017.entitlements;
 				DEVELOPMENT_TEAM = XBBK9UCLZS;
 				INFOPLIST_FILE = Copenhacks2017/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adanilyak.Copenhacks2017;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		11F986D21EAC4A19006AB9D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FB51BA463B3AD7B6C6273CF /* Pods-CHNotifications.debug.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = XBBK9UCLZS;
+				INFOPLIST_FILE = CHNotifications/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adanilyak.Copenhacks2017.CHNotifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		11F986D31EAC4A19006AB9D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9D2A52AD990093E5B5FCE93C /* Pods-CHNotifications.release.xcconfig */;
+			buildSettings = {
+				DEVELOPMENT_TEAM = XBBK9UCLZS;
+				INFOPLIST_FILE = CHNotifications/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adanilyak.Copenhacks2017.CHNotifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -481,6 +693,15 @@
 			buildConfigurations = (
 				11DEA7081EAB736A00F2106A /* Debug */,
 				11DEA7091EAB736A00F2106A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		11F986D41EAC4A19006AB9D0 /* Build configuration list for PBXNativeTarget "CHNotifications" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11F986D21EAC4A19006AB9D0 /* Debug */,
+				11F986D31EAC4A19006AB9D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

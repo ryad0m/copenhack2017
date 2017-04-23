@@ -84,10 +84,10 @@ public class Hero: HeroBaseController {
     return inNavigationController || inTabBarController
   }
   internal var toOverFullScreen: Bool {
-    return !inContainerController && toViewController!.modalPresentationStyle == .overFullScreen
+    return !inContainerController && (toViewController!.modalPresentationStyle == .overFullScreen || toViewController!.modalPresentationStyle == .overCurrentContext)
   }
   internal var fromOverFullScreen: Bool {
-    return !inContainerController && fromViewController!.modalPresentationStyle == .overFullScreen
+    return !inContainerController && (fromViewController!.modalPresentationStyle == .overFullScreen || toViewController!.modalPresentationStyle == .overCurrentContext)
   }
 
   internal var toView: UIView { return toViewController!.view }
@@ -139,24 +139,20 @@ internal extension Hero {
     fullScreenSnapshot = transitionContainer.window?.snapshotView(afterScreenUpdates: true) ?? fromView.snapshotView(afterScreenUpdates: true)
     (transitionContainer.window ?? transitionContainer)?.addSubview(fullScreenSnapshot)
 
-    if let oldSnapshots = fromViewController?.heroStoredSnapshots {
-      for snapshot in oldSnapshots {
-        snapshot.removeFromSuperview()
-      }
-      fromViewController?.heroStoredSnapshots = nil
+    if let oldSnapshot = fromViewController?.heroStoredSnapshot {
+      oldSnapshot.removeFromSuperview()
+      fromViewController?.heroStoredSnapshot = nil
     }
-    if let oldSnapshots = toViewController?.heroStoredSnapshots {
-      for snapshot in oldSnapshots {
-        snapshot.removeFromSuperview()
-      }
-      toViewController?.heroStoredSnapshots = nil
+    if let oldSnapshot = toViewController?.heroStoredSnapshot {
+      oldSnapshot.removeFromSuperview()
+      toViewController?.heroStoredSnapshot = nil
     }
 
     prepareForTransition()
+    insert(preprocessor: DefaultAnimationPreprocessor(hero: self), before: DurationPreprocessor.self)
 
     context.loadViewAlpha(rootView: toView)
     context.loadViewAlpha(rootView: fromView)
-    context.hide(view: toView)
     container.addSubview(toView)
     container.addSubview(fromView)
 
@@ -168,10 +164,9 @@ internal extension Hero {
     context.set(fromViews: fromView.flattenedViewHierarchy, toViews: toView.flattenedViewHierarchy)
 
     processContext()
-
-    prepareDefaultAnimation()
-
     prepareForAnimation()
+
+    context.hide(view: toView)
 
     #if os(tvOS)
       animate()
@@ -217,16 +212,21 @@ internal extension Hero {
       context.unhide(rootView: toView)
       context.removeSnapshots(rootView: toView)
       context.storeViewAlpha(rootView: fromView)
-      fromViewController!.heroStoredSnapshots = context.snapshots(rootView: fromView)
+      fromViewController!.heroStoredSnapshot = container
+      fromView.removeFromSuperview()
+      fromView.addSubview(container)
     } else if !finished && !presenting && fromOverFullScreen {
       // cancelled dismissing a overFullScreen VC
       context.unhide(rootView: fromView)
       context.removeSnapshots(rootView: fromView)
       context.storeViewAlpha(rootView: toView)
-      toViewController!.heroStoredSnapshots = context.snapshots(rootView: toView)
+      toViewController!.heroStoredSnapshot = container
+      toView.removeFromSuperview()
+      toView.addSubview(container)
     } else {
       context.unhideAll()
       context.removeAllSnapshots()
+      container.removeFromSuperview()
     }
 
     // move fromView & toView back from our container back to the one supplied by UIKit

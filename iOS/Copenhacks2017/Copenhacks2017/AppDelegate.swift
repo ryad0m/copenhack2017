@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OneSignal
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        OneSignal.initWithLaunchOptions(launchOptions, appId: "260ccee5-d5b0-422a-8192-d85e8be40b57")
         
         Helper.setupNavBar()
         UINavigationBar.appearance().isTranslucent = false

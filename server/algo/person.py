@@ -4,21 +4,26 @@
 # Copyright 2017
 #####
 
+import logging
+
 from .check import DatedProbability
+
+module_logger = logging.getLogger('Person')
 
 # Multiplier when we go futher from the source of disease 
 FADING_COEFF = 0.95
-
+CONDOM_COEFF = 0.5
 
 class SpreadPack:
 
-	def __init__(self, person, spread_dict):
+	def __init__(self, person, spread_dict, is_source=False):
 		self.person = person
 		# {disease_name: List[DatedProbability]}
 		self.spread_dict = spread_dict
+		self.is_source = is_source
 
 
-	def activate():
+	def activate(self):
 		""" 
 			Merge diseases came from person with person checks
 			We should truncate disease intervals based on persons contacts before
@@ -26,20 +31,22 @@ class SpreadPack:
 		updated_spread_dict = dict()
 		for disease_name, dated_probability_list in self.spread_dict.items():
 			for dated_probability in dated_probability_list:
-				if self.person.is_disease_checked(disease_name, dated_probability):
+				if not self.is_source and self.person.is_disease_checked(disease_name, dated_probability):
 					# if person has disease then we will spread it directly from him
 					# or if he checked that he doesn't ill he cann't spread it futher
 					continue
 				updated_dated_probabiblity = DatedProbability(
 					dated_probability.date, 
-					dated_probability.dated_probability * FADING_COEFF
+					dated_probability.probability * FADING_COEFF
 				)
 				if disease_name not in updated_spread_dict:
-					updated_spread_dict[disease_name] = updated_dated_probabiblity
+					updated_spread_dict[disease_name] = [updated_dated_probabiblity]
 				else:
 					updated_spread_dict[disease_name].append(updated_dated_probabiblity)
-				if person.disease_probabilities[disease_name].date < dated_probability.end_date:
-					person.disease_probabilities[disease_name].add_probability(
+				if dated_probability.end_date is None \
+						or self.person.disease_probabilities[disease_name].date \
+						< dated_probability.end_date:
+					self.person.disease_probabilities[disease_name].add_probability(
 						dated_probability.probability
 					)
 		return updated_spread_dict
@@ -71,7 +78,7 @@ class Person:
 					self.disease_probabilities[disease_name] = DatedProbability(check.date, 1.)
 					if disease_name not in self.spread_dict:
 						self.spread_dict[disease_name] = [DatedProbability(check.date, 1.)]
-					elif self.spread_dict[disease_name].end_date is not None:
+					elif self.spread_dict[disease_name].last().end_date is not None:
 						self.spread_dict[disease_name].append(DatedProbability(check.date, 1.))
 					self.is_ill = True
 				else:
@@ -82,37 +89,62 @@ class Person:
 
 	def spread_disease(self, persons_dict):
 		""" Spread from person all verified diseases he have """
+		module_logger.info('Start spreading disease from {}'.format(self.id))                    
 		# If person isn't ill do nothing
 		if not self.is_ill:
+			module_logger.info('Person isn\'t ill')
 			return
-		visited_persons = {self.id}
-		persons_quene = [SpreadPack(self, self.spread_dict)]
+		visited_persons = set()
+		persons_quene = [SpreadPack(self, self.spread_dict, True)]
 		# BFS on contacts with fading spread
 		while len(persons_quene) > 0:
 			spread_pack = persons_quene.pop(0)
 			if spread_pack.person.id in visited_persons:
 				continue
+			module_logger.info('{}: spread pack {}'.format(
+				spread_pack.person.id,
+				{k: ['s:{} e:{} p:{}'.format(v.date, v.end_date, v.probability) for v in v_list] 
+					for k, v_list in spread_pack.spread_dict.items()}
+			))
 			visited_persons.add(spread_pack.person.id)
+			# {disease_name: List[DatedProbability]}
 			updated_spread_dict = spread_pack.activate()
+			module_logger.info('{}: update spread pack {}'.format(
+				spread_pack.person.id,
+				{k: ['s:{} e:{} p:{}'.format(v.date, v.end_date, v.probability) for v in v_list] 
+					for k, v_list in updated_spread_dict.items()}
+			))
 			if len(updated_spread_dict) > 0:
 				# Otherwise we have nothing to spread
-				for contact in self.person.contacts:
-					if contact.partner_id in visited_persons:
+				for contact in spread_pack.person.contacts:
+					if contact.parnter_id in visited_persons:
 						continue
-					# TODO: truncate update_spread_dict based on person's contacts
-					# TODO: check if condom was used
+					contact_spread_pack = dict()
+					# TODO: Truncate update_spread_dict based on contacts between partners
+					for disease_name, proba_list in updated_spread_dict.items():
+						contact_spread_pack[disease_name] = []
+						multiplier = 1.
+						if contact.condom_was_used:
+							multiplier *= CONDOM_COEFF
+						for dated_proba in proba_list:
+							contact_spread_pack[disease_name].append(DatedProbability(
+								date=dated_proba.date,
+								end_date=dated_proba.end_date,
+								probability=dated_proba.probability * multiplier
+							))
 					persons_quene.append(SpreadPack(
-						persons_dict[contact.partner_id],
-						update_spread_dict
+						persons_dict[contact.parnter_id],
+						contact_spread_pack
 					))
 
 
 	def is_disease_checked(self, disease_name, dated_probability):
 		""" Check if disease was checked after given date """
 		disease_check_list = self.checks[disease_name]
-		for check in disease_check_list:
-			if check.date <= date and \
-					(check.end_date is None or date <= check.end_date) :
+		for i, check in enumerate(disease_check_list):
+			if check.date <= dated_probability.date and check.is_positive and \
+					(i + 1 == len(disease_check_list) \
+						or dated_probability.date <= disease_check_list[i].date) :
 				return True	
 		return False
 

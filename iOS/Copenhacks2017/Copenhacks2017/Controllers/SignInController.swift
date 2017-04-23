@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import OneSignal
 
 let signInResultNotification: Notification.Name = Notification.Name(rawValue: "signInResult")
 
@@ -37,6 +38,14 @@ class SignInController: UIViewController {
         if result {
             AuthModel.shared.token = token
             AuthModel.shared.id = id
+            
+            OneSignal.idsAvailable { (userId, regId) in
+                guard let playerId = userId else {
+                    return
+                }
+                API.sendPlayedIdForPush(playerId: playerId)
+            }
+            
             dismiss(animated: true, completion: nil)
         }
     }
