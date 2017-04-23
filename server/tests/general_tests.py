@@ -151,7 +151,7 @@ class GeneralTestSuite(unittest.TestCase):
                 Contact('Max', date(2016, 1, 24), condom_was_used=False)
             ],
             {
-                'AIDS': [Check(date(2016, 1, 13), True), Check(date(2016, 1, 15), True)],
+                'AIDS': [Check(date(2016, 1, 13), True), Check(date(2016, 1, 15), False)],
                 'Gonorrhea': [], 'HIV': []
             },
             DISEASES_NAMES
