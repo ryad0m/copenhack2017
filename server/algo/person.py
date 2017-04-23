@@ -78,13 +78,13 @@ class Person:
 					self.disease_probabilities[disease_name] = DatedProbability(check.date, 1.)
 					if disease_name not in self.spread_dict:
 						self.spread_dict[disease_name] = [DatedProbability(check.date, 1.)]
-					elif self.spread_dict[disease_name].last().end_date is not None:
+					elif self.spread_dict[disease_name][-1].end_date is not None:
 						self.spread_dict[disease_name].append(DatedProbability(check.date, 1.))
 					self.is_ill = True
 				else:
 					self.disease_probabilities[disease_name] = DatedProbability(check.date, 0.)
 					if disease_name in self.spread_dict:
-						self.spread_dict[spread_name].last().end_date = check.date
+						self.spread_dict[spread_name][-1].end_date = check.date
 			
 
 	def spread_disease(self, persons_dict):
@@ -117,23 +117,22 @@ class Person:
 			if len(updated_spread_dict) > 0:
 				# Otherwise we have nothing to spread
 				for contact in spread_pack.person.contacts:
-					if contact.parnter_id in visited_persons:
+					if contact.partner_id in visited_persons:
 						continue
 					contact_spread_pack = dict()
-					# TODO: Truncate update_spread_dict based on contacts between partners
+					# Truncate update_spread_dict based on contacts between partners
 					for disease_name, proba_list in updated_spread_dict.items():
 						contact_spread_pack[disease_name] = []
 						multiplier = 1.
 						if contact.condom_was_used:
 							multiplier *= CONDOM_COEFF
 						for dated_proba in proba_list:
-							contact_spread_pack[disease_name].append(DatedProbability(
-								date=dated_proba.date,
-								end_date=dated_proba.end_date,
-								probability=dated_proba.probability * multiplier
-							))
+							new_proba = contact.get_disease_intersection(
+								dated_proba, disease_name, multiplier, persons_dict)
+							if new_proba is not None:
+								contact_spread_pack[disease_name].append(new_proba)
 					persons_quene.append(SpreadPack(
-						persons_dict[contact.parnter_id],
+						persons_dict[contact.partner_id],
 						contact_spread_pack
 					))
 
