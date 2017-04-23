@@ -78,7 +78,9 @@ class GeneralTestSuite(unittest.TestCase):
             DISEASES_NAMES
         ))
         runner = Runner(persons)
-        self.save_in_file(runner.get_probabilities(), 'simple_chain.txt')
+        probabilitites = runner.get_probabilities()
+        self.save_in_file(probabilitites, 'simple_chain.txt')
+        self.assertTrue(probabilitites['Alex']['AIDS'] > .5)
 
 
     def test_condom_use(self):
@@ -105,8 +107,70 @@ class GeneralTestSuite(unittest.TestCase):
             DISEASES_NAMES
         ))
         runner = Runner(persons)
-        self.save_in_file(runner.get_probabilities(), 'test_condom_use.txt')
-        self.assertTrue(False)
+        probabilitites = runner.get_probabilities()
+        self.save_in_file(probabilitites, 'test_condom_use.txt')
+        self.assertTrue(probabilitites['Max']['AIDS'] < .5)
+        self.assertTrue(probabilitites['Max']['AIDS'] > .2)
+
+
+    def test_negative_check(self):
+        persons = []
+        persons.append(Person(
+            'Helen',
+            [
+                Contact('Max', date(2016, 1, 24), condom_was_used=False)
+            ],
+            {
+                'AIDS': [Check(date(2016, 2, 10), True)],
+                'Gonorrhea': [], 'HIV': []
+            },
+            DISEASES_NAMES
+        ))
+        persons.append(Person(
+            'Max',
+            [
+                Contact('Helen', date(2016, 1, 24), condom_was_used=False),
+            ],
+            {
+                'AIDS': [Check(date(2016, 2, 12), False)], 
+                'Gonorrhea': [], 'HIV': []
+            },
+            DISEASES_NAMES
+        ))
+        runner = Runner(persons)
+        probabilitites = runner.get_probabilities()
+        self.save_in_file(probabilitites, 'test_negative_check.txt')
+        self.assertTrue(probabilitites['Max']['AIDS'] == .0)
+
+
+    def test_empty_intersection(self):
+        persons = []
+        persons.append(Person(
+            'Helen',
+            [
+                Contact('Max', date(2016, 1, 24), condom_was_used=False)
+            ],
+            {
+                'AIDS': [Check(date(2016, 1, 13), True), Check(date(2016, 1, 15), False)],
+                'Gonorrhea': [], 'HIV': []
+            },
+            DISEASES_NAMES
+        ))
+        persons.append(Person(
+            'Max',
+            [
+                Contact('Helen', date(2016, 1, 24), condom_was_used=False),
+            ],
+            {
+                'AIDS': [], 'Gonorrhea': [], 'HIV': []
+            },
+            DISEASES_NAMES
+        ))
+        runner = Runner(persons)
+        probabilitites = runner.get_probabilities()
+        self.save_in_file(probabilitites, 'test_empty_intersection.txt')
+        self.assertTrue(probabilitites['Max']['AIDS'] == .0)
+
 
 
 
