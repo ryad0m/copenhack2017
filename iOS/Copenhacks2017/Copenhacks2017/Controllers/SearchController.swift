@@ -31,6 +31,7 @@ class SearchController: UIViewController {
         view.heroID = "searchBack"
         
         setupSearch()
+        performSearch(with: "")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,6 +75,10 @@ extension SearchController: UISearchResultsUpdating, UISearchControllerDelegate 
     
     func updateSearchResults(for searchController: UISearchController) {
         let q = searchController.searchBar.text!
+        performSearch(with: q)
+    }
+    
+    func performSearch(with q: String) {
         currentRequest?.cancel()
         
         currentRequest = API.search(with: q) { [unowned self] json in

@@ -33,9 +33,28 @@ struct Test {
             
         }
         
+        var heroID: String {
+            switch self {
+            case .negative:
+                return "negative"
+                
+            case .positive:
+                return "positive"
+                
+            case .additional:
+                return ""
+            }
+        }
+        
     }
     
-    var date: Date
-    var infections: [Infection]
+    var result: Result?
+    
+    var date: Date?
+    var infections: [InfectionModel] = []
+    
+    var apiParam: [String] {
+        return infections.filter { $0.include == true }.map { $0.id }
+    }
     
 }

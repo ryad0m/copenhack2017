@@ -52,6 +52,52 @@ class API {
         }
     }
     
+    static func getInfections(completion: @escaping (JSON) -> ()) {
+        let url = URL(string: base + "api/diseases/")!
+        
+        Alamofire.request(url,
+                          method: .get,
+                          parameters: nil,
+                          headers: AuthModel.shared.header).validate().responseJSON { response in
+                            switch response.result {
+                            case .success(let json): completion(JSON(json))
+                            case .failure(_): print(API.error(response: response))
+                            }
+        }
+    }
+    
+    static func check(test: Test, completion: @escaping (JSON) -> ()) {
+        let url = URL(string: base + "api/checks/")!
+        
+        Alamofire.request(url,
+                          method: .post,
+                          parameters: ["is_clean": test.result! == .negative,
+                                       "date": test.date!.sti,
+                                       "diseases": test.apiParam],
+                          encoding: JSONEncoding.default,
+                          headers: AuthModel.shared.header).validate().responseJSON { response in
+                            switch response.result {
+                            case .success(let json): completion(JSON(json))
+                            case .failure(_): print(API.error(response: response))
+                            }
+                        
+        }
+    }
+    
+    static func me(completion: @escaping (JSON) -> ()) {
+        let url = URL(string: base + "api/me/")!
+        
+        Alamofire.request(url,
+                          method: .get,
+                          parameters: nil,
+                          headers: AuthModel.shared.header).validate().responseJSON { response in
+                            switch response.result {
+                            case .success(let json): completion(JSON(json))
+                            case .failure(_): print(API.error(response: response))
+                            }
+        }
+    }
+    
     // Error parsing ----------------------
     
     static func error(response: DataResponse<Any>) -> String {
