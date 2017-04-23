@@ -43,19 +43,19 @@ struct ScoreModel {
             switch self {
             case .low: return UIColor(hex: "A3CE41")
             case .mid: return UIColor(hex: "EDE14D")
-            case .high: return UIColor(hex: "EFA44A")
+            case .high: return UIColor(hex: "EF2020")
             }
         }
         
     }
     
     var infection: InfectionModel
-    var score: Int
+    var score: Float
     var danger: DangerLevel
     
     init(json: JSON) {
         infection = InfectionModel(with: json["disease"])
-        score = json["score"].intValue
+        score = json["score"].floatValue
         danger = DangerLevel(rawValue: json["color"].intValue)!
     }
     

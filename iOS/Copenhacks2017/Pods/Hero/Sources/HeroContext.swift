@@ -213,6 +213,8 @@ extension HeroContext {
     snapshot.layer.borderColor = view.layer.borderColor
     snapshot.layer.borderWidth = view.layer.borderWidth
     snapshot.layer.transform = view.layer.transform
+    snapshot.layer.contentsRect = view.layer.contentsRect
+    snapshot.layer.contentsScale = view.layer.contentsScale
 
     if self[view]?.displayShadow ?? true {
       snapshot.layer.shadowRadius = view.layer.shadowRadius
@@ -268,18 +270,21 @@ extension HeroContext {
 // internal
 extension HeroContext {
   public func hide(view: UIView) {
-    if view is UIVisualEffectView {
-      view.isHidden = true
-    } else if viewAlphas[view] == nil, self[view]?.snapshotType != .noSnapshot {
-      viewAlphas[view] = view.isOpaque ? .infinity : view.alpha
-      view.alpha = 0
+    if viewAlphas[view] == nil, self[view]?.snapshotType != .noSnapshot {
+      if view is UIVisualEffectView {
+        view.isHidden = true
+        viewAlphas[view] = 1
+      } else {
+        viewAlphas[view] = view.isOpaque ? .infinity : view.alpha
+        view.alpha = 0
+      }
     }
   }
   public func unhide(view: UIView) {
-    if view is UIVisualEffectView {
-      view.isHidden = false
-    } else if let oldAlpha = viewAlphas[view] {
-      if oldAlpha == .infinity {
+    if let oldAlpha = viewAlphas[view] {
+      if view is UIVisualEffectView {
+        view.isHidden = false
+      } else if oldAlpha == .infinity {
         view.alpha = 1
         view.isOpaque = true
       } else {

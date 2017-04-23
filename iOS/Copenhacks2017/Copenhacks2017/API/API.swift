@@ -98,6 +98,20 @@ class API {
         }
     }
     
+    static func sendPlayedIdForPush(playerId: String) {
+        let url = URL(string: base + "api/playerid/")!
+        
+        Alamofire.request(url,
+                          method: .put,
+                          parameters: ["playerid": playerId],
+                          headers: AuthModel.shared.header).validate().responseJSON { response in
+                            switch response.result {
+                            case .success(_): break
+                            case .failure(_): print(API.error(response: response))
+                            }
+        }
+    }
+    
     // Error parsing ----------------------
     
     static func error(response: DataResponse<Any>) -> String {

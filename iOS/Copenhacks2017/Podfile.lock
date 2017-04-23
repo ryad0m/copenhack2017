@@ -1,28 +1,31 @@
 PODS:
-  - Alamofire (4.3.0)
+  - Alamofire (4.4.0)
   - AlamofireImage (3.2.0):
     - Alamofire (~> 4.1)
   - DatePickerDialog (1.1.7)
-  - Hero (0.3.2)
+  - Hero (0.3.6)
+  - OneSignal (2.5.2)
   - SwiftyJSON (3.1.4)
-  - SwipeCellKit (1.2.0)
+  - SwipeCellKit (1.8.0)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireImage
   - DatePickerDialog
   - Hero
+  - OneSignal
   - SwiftyJSON
   - SwipeCellKit
 
 SPEC CHECKSUMS:
-  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   DatePickerDialog: bd5e7e92e4da2c6a8966b28d5f5d8f335d6c2c63
-  Hero: 48f8df6798d16d35935cfbb0726c5fbbd23cfe5a
+  Hero: d3c6f4dd80cdcdbb339be64e57ae3b5c3ab9938c
+  OneSignal: 66d08b6b1e3c3858cbf28207ed20f1fa865ab2a2
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
-  SwipeCellKit: 8aa776c650c5b775c2231c39e39e2f391eed83a4
+  SwipeCellKit: 01a58bf7e63d5df09aedd161828833944c4c333c
 
-PODFILE CHECKSUM: 3c50a1ef3ec96214aba2f3e6f4e3cf93d5b53dcf
+PODFILE CHECKSUM: 12135ab0f36c13f11a6b462a5e870e0899244b47
 
-COCOAPODS: 1.1.0
+COCOAPODS: 1.2.1

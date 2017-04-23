@@ -14,18 +14,10 @@ import UIKit
  The default behavior closely matches the stock Mail.app. If you want to customize the transition style (ie. how the action buttons are exposed), or the expansion style (the behavior when the row is swiped passes a defined threshold), you can return the appropriately configured `SwipeTableOptions` via the `SwipeTableViewCellDelegate` delegate.
  */
 open class SwipeTableViewCell: UITableViewCell {
-    enum SwipeState: Int {
-        case center = 0
-        case left
-        case right
-        case animatingToCenter
-    }
-    
     /// The object that acts as the delegate of the `SwipeTableViewCell`.
     public weak var delegate: SwipeTableViewCellDelegate?
-
-    var feedbackGenerator: UIImpactFeedbackGenerator?
-    var animator: UIViewPropertyAnimator?
+    
+    var animator: SwipeAnimator?
 
     var state = SwipeState.center
     var originalCenter: CGFloat = 0
@@ -47,7 +39,7 @@ open class SwipeTableViewCell: UITableViewCell {
         return gesture
     }()
     
-    let elasticScrollRation: CGFloat = 0.4
+    let elasticScrollRatio: CGFloat = 0.4
     var scrollRatio: CGFloat = 1.0
     
     /// :nodoc:
@@ -57,7 +49,14 @@ open class SwipeTableViewCell: UITableViewCell {
         }
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    /// :nodoc:
+    open override var frame: CGRect {
+        set { super.frame = state.isActive ? CGRect(origin: CGPoint(x: frame.minX, y: newValue.minY), size: newValue.size) : newValue }
+        get { return super.frame }
+    }
+    
+    /// :nodoc:
+    override public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         configure()
@@ -90,6 +89,8 @@ open class SwipeTableViewCell: UITableViewCell {
     
     /// :nodoc:
     override open func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        
         var view: UIView = self
         while let superview = view.superview {
             view = superview
@@ -101,15 +102,6 @@ open class SwipeTableViewCell: UITableViewCell {
                 tableView.panGestureRecognizer.addTarget(self, action: #selector(handleTablePan(gesture:)))
                 return
             }            
-        }
-    }
-    
-    /// :nodoc:
-    open override func willMove(toWindow newWindow: UIWindow?) {
-        super.willMove(toWindow: newWindow)
-        
-        if newWindow == nil {
-            reset()
         }
     }
     
@@ -128,18 +120,15 @@ open class SwipeTableViewCell: UITableViewCell {
         
         switch gesture.state {
         case .began:
+            stopAnimatorIfNeeded()
+
             originalCenter = center.x
             
             if state == .center || state == .animatingToCenter {
-                stopAnimatorIfNeeded()
-            
-                feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-                feedbackGenerator?.prepare()
-
                 let velocity = gesture.velocity(in: target)
                 let orientation: SwipeActionsOrientation = velocity.x > 0 ? .left : .right
 
-                handleBeginPanIfNecessary(for: orientation)
+                showActionsView(for: orientation)
             }
             
         case .changed:
@@ -154,74 +143,59 @@ open class SwipeTableViewCell: UITableViewCell {
                 target.center.x = gesture.elasticTranslation(in: target,
                                                              withLimit: .zero,
                                                              fromOriginalCenter: CGPoint(x: originalCenter, y: 0)).x
-                scrollRatio = elasticScrollRation
+                scrollRatio = elasticScrollRatio
                 return
             }
             
-            let expanded: Bool
-            switch actionsView.options.expansionStyle {
-            case .selection:
-                target.center.x = gesture.elasticTranslation(in: target,
-                                                             withLimit: CGSize(width: bounds.width / 2, height: 0),
-                                                             fromOriginalCenter: CGPoint(x: originalCenter, y: 0)).x
-                expanded = abs(frame.minX) >= bounds.midX
-            case .destructive:
-                let distance = abs(translation)
-                let location = gesture.location(in: superview!).x
-                expanded = (actionsView.orientation == .right ? location < 80 : location > bounds.width - 80) && (state != .center || distance > actionsView.preferredWidth)
+            if let expansionStyle = actionsView.options.expansionStyle {
+                let expanded = expansionStyle.shouldExpand(view: self, gesture: gesture, in: tableView!)
+                let targetOffset = expansionStyle.targetOffset(for: self, in: tableView!)
+                let currentOffset = abs(translation + originalCenter - bounds.midX)
                 
-                let limit: CGFloat = bounds.width - 30
-                if expanded && !actionsView.expanded {
-                    let centerForTranslationToEdge = bounds.midX - limit * actionsView.orientation.scale
+                if expanded && !actionsView.expanded && targetOffset > currentOffset {
+                    let centerForTranslationToEdge = bounds.midX - targetOffset * actionsView.orientation.scale
                     let delta = centerForTranslationToEdge - originalCenter
                     
                     animate(toOffset: centerForTranslationToEdge)
                     gesture.setTranslation(CGPoint(x: delta, y: 0), in: superview!)
                 } else {
                     target.center.x = gesture.elasticTranslation(in: target,
-                                                                 withLimit: CGSize(width: limit, height: 0),
-                                                                 fromOriginalCenter: CGPoint(x: originalCenter, y: 0)).x
+                                                                 withLimit: CGSize(width: targetOffset, height: 0),
+                                                                 fromOriginalCenter: CGPoint(x: originalCenter, y: 0),
+                                                                 applyingRatio: expansionStyle.targetOverscrollElasticity).x
                 }
-                break
-            default:
+                
+                actionsView.setExpanded(expanded: expanded, feedback: true)
+            } else {
                 target.center.x = gesture.elasticTranslation(in: target,
                                                              withLimit: CGSize(width: actionsView.preferredWidth, height: 0),
                                                              fromOriginalCenter: CGPoint(x: originalCenter, y: 0),
-                                                             applyingRatio: elasticScrollRation).x
+                                                             applyingRatio: elasticScrollRatio).x
                 if (target.center.x - originalCenter) / translation != 1.0 {
-                    scrollRatio = elasticScrollRation
+                    scrollRatio = elasticScrollRatio
                 }
-                
-                expanded = false
-                break
             }
-            
-            if expanded != actionsView.expanded {
-                feedbackGenerator?.impactOccurred()
-                feedbackGenerator?.prepare()
-            }
-            
-            actionsView.expanded = expanded
-            
         case .ended:
             guard let actionsView = actionsView else { return }
 
             let velocity = gesture.velocity(in: target)
             state = targetState(forVelocity: velocity)
             
-            feedbackGenerator = nil
-
             if actionsView.expanded == true, let expandedAction = actionsView.expandableAction  {
                 perform(action: expandedAction)
             } else {
-                let targetOffset = state != .center ? targetCenter(active: true) : bounds.midX
+                let targetOffset = targetCenter(active: state.isActive)
                 let distance = targetOffset - center.x
                 let normalizedVelocity = velocity.x * scrollRatio / distance
-                
+
                 animate(toOffset: targetOffset, withInitialVelocity: normalizedVelocity) { _ in
                     if self.state == .center {
                         self.reset()
                     }
+                }
+
+                if !state.isActive {
+                    notifyEditingStateChange(active: false)
                 }
             }
 
@@ -229,29 +203,32 @@ open class SwipeTableViewCell: UITableViewCell {
         }
     }
     
-    func handleBeginPanIfNecessary(for orientation: SwipeActionsOrientation) {
+    @discardableResult
+    func showActionsView(for orientation: SwipeActionsOrientation) -> Bool {
         guard let tableView = tableView,
             let indexPath = tableView.indexPath(for: self),
             let actions = delegate?.tableView(tableView, editActionsForRowAt: indexPath, for: orientation),
             actions.count > 0
             else {
-                return
+                return false
         }
         
         originalLayoutMargins = super.layoutMargins
         
         // Remove highlight and deselect any selected cells
-        isHighlighted = false
+        super.setHighlighted(false, animated: false)
         let selectedIndexPaths = tableView.indexPathsForSelectedRows
         selectedIndexPaths?.forEach { tableView.deselectRow(at: $0, animated: false) }
         
         // Temporarily remove table gestures
         tableView.setGestureEnabled(false)
         
-        configureActionView(with: actions, for: orientation)
+        configureActionsView(with: actions, for: orientation)
+        
+        return true
     }
     
-    func configureActionView(with actions: [SwipeAction], for orientation: SwipeActionsOrientation) {
+    func configureActionsView(with actions: [SwipeAction], for orientation: SwipeActionsOrientation) {
         guard let tableView = tableView,
             let indexPath = tableView.indexPath(for: self) else { return }
         
@@ -280,20 +257,44 @@ open class SwipeTableViewCell: UITableViewCell {
         }
         
         self.actionsView = actionsView
+
+        state = .dragging
+        
+        notifyEditingStateChange(active: true)
     }
     
-    func animate(toOffset offset: CGFloat, withInitialVelocity velocity: CGFloat = 0, completion: ((UIViewAnimatingPosition) -> Void)? = nil) {
+    func notifyEditingStateChange(active: Bool) {
+        guard let actionsView = actionsView,
+            let tableView = tableView,
+            let indexPath = tableView.indexPath(for: self) else { return }
+
+        if active {
+            delegate?.tableView(tableView, willBeginEditingRowAt: indexPath, for: actionsView.orientation)
+        } else {
+            delegate?.tableView(tableView, didEndEditingRowAt: indexPath, for: actionsView.orientation)
+        }
+    }
+    
+    func animate(duration: Double = 0.7, toOffset offset: CGFloat, withInitialVelocity velocity: CGFloat = 0, completion: ((Bool) -> Void)? = nil) {
         stopAnimatorIfNeeded()
         
         layoutIfNeeded()
         
-        let animator: UIViewPropertyAnimator = {
+        let animator: SwipeAnimator = {
             if velocity != 0 {
-                let velocity = CGVector(dx: velocity, dy: velocity)
-                let parameters = UISpringTimingParameters(mass: 1.0, stiffness: 100, damping: 18, initialVelocity: velocity)
-                return UIViewPropertyAnimator(duration: 0.0, timingParameters: parameters)
+                if #available(iOS 10, *) {
+                    let velocity = CGVector(dx: velocity, dy: velocity)
+                    let parameters = UISpringTimingParameters(mass: 1.0, stiffness: 100, damping: 18, initialVelocity: velocity)
+                    return UIViewPropertyAnimator(duration: 0.0, timingParameters: parameters)
+                } else {
+                    return UIViewSpringAnimator(duration: duration, damping: 1.0, initialVelocity: velocity)
+                }
             } else {
-                return UIViewPropertyAnimator(duration: 0.7, dampingRatio: 1.0)
+                if #available(iOS 10, *) {
+                    return UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0)
+                } else {
+                    return UIViewSpringAnimator(duration: duration, damping: 1.0)
+                }
             }
         }()
 
@@ -304,7 +305,7 @@ open class SwipeTableViewCell: UITableViewCell {
         })
         
         if let completion = completion {
-            animator.addCompletion(completion)
+            animator.addCompletion(completion: completion)
         }
         
         self.animator = animator
@@ -335,10 +336,12 @@ open class SwipeTableViewCell: UITableViewCell {
     override open func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let point = convert(point, to: superview!)
 
-        for cell in tableView?.swipeCells ?? [] {
-            if (cell.state == .left || cell.state == .right) && !cell.contains(point: point) {
-                tableView?.hideSwipeCell()
-                return false
+        if !UIAccessibilityIsVoiceOverRunning() {
+            for cell in tableView?.swipeCells ?? [] {
+                if (cell.state == .left || cell.state == .right) && !cell.contains(point: point) {
+                    tableView?.hideSwipeCell()
+                    return false
+                }
             }
         }
         
@@ -393,30 +396,6 @@ extension SwipeTableViewCell {
         actionsView?.removeFromSuperview()
         actionsView = nil
     }
-    
-    /**
-     Hides the swipe actions and returns the cell to center.
-     
-     - parameter animated: Specify `true` to animate the hiding of the swipe actions or `false` to hide it immediately.
-     */
-    public func hideSwipe(animated: Bool) {
-        guard state == .left || state == .right else { return }
-
-        state = .animatingToCenter
-        
-        tableView?.setGestureEnabled(true)
-
-        let targetCenter = self.targetCenter(active: false)
-        
-        if animated {
-            animate(toOffset: targetCenter) { _ in
-                self.reset()
-            }
-        } else {
-            center = CGPoint(x: targetCenter, y: self.center.y)
-            reset()
-        }
-    }
 }
 
 extension SwipeTableViewCell: SwipeActionsViewDelegate {
@@ -425,36 +404,97 @@ extension SwipeTableViewCell: SwipeActionsViewDelegate {
     }
     
     func perform(action: SwipeAction) {
+        guard let actionsView = actionsView else { return }
+        
+        if action == actionsView.expandableAction, let expansionStyle = actionsView.options.expansionStyle {
+            // Trigger the expansion (may already be expanded from drag)
+            actionsView.setExpanded(expanded: true)
+
+            switch expansionStyle.completionAnimation {
+            case .bounce:
+                perform(action: action, hide: true)
+            case .fill(let fillOption):
+                performFillAction(action: action, fillOption: fillOption)
+            }            
+        } else {
+            perform(action: action, hide: action.hidesWhenSelected)
+        }
+    }
+    
+    func perform(action: SwipeAction, hide: Bool) {
+        guard let tableView = tableView, let indexPath = tableView.indexPath(for: self) else { return }
+
+        if hide {
+            hideSwipe(animated: true)
+        }
+        
+        action.handler?(action, indexPath)
+    }
+    
+    func performFillAction(action: SwipeAction, fillOption: SwipeExpansionStyle.FillOptions) {
         guard let actionsView = actionsView,
             let tableView = tableView,
             let indexPath = tableView.indexPath(for: self) else { return }
         
-        if actionsView.options.expansionStyle == .destructive && action == actionsView.expandableAction {
-            // Trigger the expansion (may already be expanded from drag)
-            actionsView.expanded = true
-            
-            action.handler?(action, indexPath)
-            tableView.deleteRows(at: [indexPath], with: .none)
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                self.center.x = self.bounds.midX - (self.bounds.width + 100) * actionsView.orientation.scale
-            })
-        } else {
-            if actionsView.options.expansionStyle == .selection || action.hidesWhenSelected {
-                hideSwipe(animated: true)
-            }
+        let newCenter = bounds.midX - (bounds.width + actionsView.minimumButtonWidth) * actionsView.orientation.scale
 
-            action.handler?(action, indexPath)
+        action.completionHandler = { [weak self] style in
+            action.completionHandler = nil
+
+            self?.delegate?.tableView(tableView, didEndEditingRowAt: indexPath, for: actionsView.orientation)
+            
+            switch style {
+            case .delete:
+                self?.mask = actionsView.createDeletionMask()
+                
+                tableView.deleteRows(at: [indexPath], with: .none)
+                
+                UIView.animate(withDuration: 0.3, animations: {
+                    self?.center.x = newCenter
+                    self?.mask?.frame.size.height = 0
+                    
+                    if fillOption.timing == .after {
+                        actionsView.alpha = 0
+                    }
+                }) { [weak self] _ in
+                    self?.mask = nil
+                    self?.reset()
+                }
+            case .reset:
+                self?.hideSwipe(animated: true)
+            }
         }
-    }    
+        
+        let invokeAction = {
+            action.handler?(action, indexPath)
+            
+            if let style = fillOption.autoFulFillmentStyle {
+                action.fulfill(with: style)
+            }
+        }
+        
+        animate(duration: 0.3, toOffset: newCenter) { _ in
+            if fillOption.timing == .after {
+                invokeAction()
+            }
+        }
+        
+        if fillOption.timing == .with {
+            invokeAction()
+        }
+    }
 }
 
 extension SwipeTableViewCell {
     /// :nodoc:
     override open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == tapGestureRecognizer {
+            if UIAccessibilityIsVoiceOverRunning() {
+                tableView?.hideSwipeCell()
+            }
+
             if let cells = tableView?.visibleCells as? [SwipeTableViewCell] {
-                let cell = cells.first(where: { $0.state != .center })
+                let cell = cells.first(where: { $0.state.isActive })
                 return cell == nil ? false : true
             }
         }

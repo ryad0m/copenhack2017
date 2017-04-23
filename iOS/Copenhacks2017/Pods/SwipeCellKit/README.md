@@ -20,7 +20,14 @@ A swipeable UITableViewCell with support for:
 * Action buttons with: *text only, text + image, image only*
 * Haptic Feedback
 * Customizable transitions: *Border, Drag, and Reveal*
+* Customizable action button behavior during swipe
 * Animated expansion when dragging past threshold
+* Customizable expansion animations
+* Accessibility
+
+## Background
+
+Check out my [blog post](https://jerkoch.com/2017/02/07/swiper-no-swiping.html) on how *SwipeCellKit* came to be.
 
 ## Demo
 
@@ -40,6 +47,10 @@ The transition style describes how the action buttons are exposed during the swi
 
 <p align="center"><img src="https://raw.githubusercontent.com/jerkoch/SwipeCellKit/develop/Screenshots/Transition-Reveal.gif" /></p>
 
+#### Customized
+
+<p align="center"><img src="https://raw.githubusercontent.com/jerkoch/SwipeCellKit/develop/Screenshots/Transition-Delegate.gif" /></p>
+
 ### Expansion Styles
 
 The expansion style describes the behavior when the cell is swiped past a defined threshold.
@@ -56,11 +67,15 @@ The expansion style describes the behavior when the cell is swiped past a define
 
 <p align="center"><img src="https://raw.githubusercontent.com/jerkoch/SwipeCellKit/develop/Screenshots/Expansion-Destructive.gif" /></p>
 
+#### Customized
+
+<p align="center"><img src="https://raw.githubusercontent.com/jerkoch/SwipeCellKit/develop/Screenshots/Expansion-Delegate.gif" /></p>
+
 ## Requirements
 
 * Swift 3.0
 * Xcode 8
-* iOS 10.0+
+* iOS 9.0+
 
 ## Installation
 
@@ -101,8 +116,8 @@ override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexP
 Adopt the `SwipeTableViewCellDelegate` protocol:
 
 ````swift
-func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction] {
-    guard orientation == .right else { return }
+func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+    guard orientation == .right else { return nil }
 
     let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
         // handle action by updating model with deletion
@@ -115,7 +130,7 @@ func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPat
 }
 ````
 
-Optionally, you call implement the options method to customize the behavior of the swipe actions:
+Optionally, you can implement the `editActionsOptionsForRowAt` method to customize the behavior of the swipe actions:
 
 ````swift    
 func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
@@ -125,10 +140,62 @@ func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: I
     return options
 }
 ````
+### Transitions
+
+Three built-in transition styles are provided by `SwipeTransitionStyle`:  
+
+* .border: The visible action area is equally divide between all action buttons.
+* .drag: The visible action area is dragged, pinned to the cell, with each action button fully sized as it is exposed.
+* .reveal: The visible action area sits behind the cell, pinned to the edge of the table view, and is revealed as the cell is dragged aside.
+
+See [Customizing Transitions](https://github.com/jerkoch/SwipeCellKit/blob/develop/Guides/Advanced.md) for more details on customizing button appearance as the swipe is performed.
+
+### Expansion
+
+Four built-in expansion styles are provided by `SwipeExpansionStyle`:  
+
+* .selection
+* .destructive (like Mail.app)
+* .destructiveAfterFill (like Mailbox/Tweetbot)
+* .fill
+
+Much effort has gone into making `SwipeExpansionStyle` extremely customizable. If these built-in styles do not meet your needs, see [Customizing Expansion](https://github.com/jerkoch/SwipeCellKit/blob/develop/Guides/Advanced.md) for more details on creating custom styles.
+
+The built-in `.fill` expansion style requires manual action fulfillment. This means your action handler must call `SwipeAction.fulfill(style:)` at some point during or after invocation to resolve the fill expansion. The supplied `ExpansionFulfillmentStyle` allows you to delete or reset the cell at some later point (possibly after further user interaction).
+
+The built-in `.destructive`, and `.destructiveAfterFill` expansion styles are configured to automatically perform row deletion when the action handler is invoked (automatic fulfillment).  Your deletion behavior may require coordination with other row animations (eg. inside `beginUpdates` and `endUpdates`). In this case, you can easily create a custom `SwipeExpansionStyle` which requires manual fulfillment to trigger deletion:
+
+````swift
+var options = SwipeTableOptions()
+options.expansionStyle = .destructive(automaticallyDelete: false)
+````
+
+> **NOTE**: You must call `SwipeAction.fulfill(with style:)` at some point while/after your action handler is invoked to trigger deletion. Do not call `deleteRows` directly.
+
+````swift
+let delete = SwipeAction(style: .destructive, title: nil) { action, indexPath in
+    // Update model
+    self.emails.remove(at: indexPath.row)
+
+    // Coordinate table view update animations
+    self.tableView.beginUpdates()
+    self.tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+    action.fulfill(with: .delete)
+    self.tableView.endUpdates()
+}
+````
+
+## Advanced 
+
+See the [Advanced Guide](https://github.com/jerkoch/SwipeCellKit/blob/develop/Guides/Advanced.md) for more details on customization.
 
 ## Credits
 
 Created and maintained by [**@jerkoch**](https://twitter.com/jerkoch).
+
+## Showcase
+
+We're interested in knowing [who's using *SwipeCellKit*](https://github.com/jerkoch/SwipeCellKit/blob/develop/SHOWCASE.md) in their app. Please submit a pull request to add your app! 
 
 ## License
 
