@@ -75,11 +75,16 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_FACEBOOK_KEY = '277267562682387'
 SOCIAL_AUTH_FACEBOOK_SECRET = '59f6adf3ea09b3e80ade8749445ca0ad'
 #SOCIAL_AUTH_FACEBOOK_API_VERSION = '2.9'
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+    'public_profile',
+    'user_friends',
+    'email',
+]
 
-#SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-#    'locale': 'en_EN',
-#    'fields': 'id, name,email',
-#}
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'locale': 'en_EN',
+    'fields': 'id,name,email',
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -142,3 +147,6 @@ SWAGGER_SETTINGS = {
     'is_authenticated': True,
     'api_path': 'http://hack.ryadom.me/api/',
 }
+
+RED_LEVEL = 0.5
+YELLOW_LEVEL = 0.2

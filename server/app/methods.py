@@ -1,7 +1,7 @@
-
 from .models import *
 
 import facebook
+
 facebook.VALID_API_VERSIONS.append('2.9')
 
 
@@ -19,10 +19,11 @@ def get_fb_connection(user):
     return facebook.GraphAPI(access_token=get_token(user),
                              version='2.9')
 
+
 def prepare_user(user):
     profile, created = Profile.objects.get_or_create(user=user)
     if created:
         profile.fbid = get_fb_id(user)
         profile.picture = get_fb_connection(user).get_object(
-                'me/picture', height=100)['url']
+            'me/picture', height=200)['url']
         profile.save()

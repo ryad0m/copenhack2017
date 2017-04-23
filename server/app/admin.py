@@ -20,3 +20,8 @@ class DiseaseAdmin(admin.ModelAdmin):
 @admin.register(Check)
 class CheckAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Score)
+class ScoreAdmin(admin.ModelAdmin):
+    pass
