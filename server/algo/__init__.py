@@ -4,7 +4,6 @@
 #####
 
 from .runner import Runner
-from .check import Disease
 from .person import Person
 from .contact import Contact
 from .check import Check

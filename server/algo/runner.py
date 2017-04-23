@@ -4,6 +4,10 @@
 # Copyright 2017
 #####
 
+import logging
+
+module_logger = logging.getLogger('Runner')
+
 
 class Runner:
 
@@ -12,6 +16,7 @@ class Runner:
 			diseases: list[Disease] 
 			persons: list[Person]
 		"""
+		module_logger.info('Receive {} persons'.format(len(persons)))
 		self.persons = persons
 		self.run()
 

@@ -5,15 +5,6 @@
 #####
 
 
-class Disease:
-
-	def __init__(self, name, incubation_period):
-		# Name of disease
-		self.name = name
-		# Incubation period of disease in days
-		self.incubation_period = incubation_period
-
-
 class Check:
 
 	def __init__(self, date, is_positive):

@@ -77,8 +77,8 @@ class GeneralTestSuite(unittest.TestCase):
             DISEASES_NAMES
         ))
         runner = Runner(persons)
-        runner.run()
         self.save_in_file(runner.get_probabilities(), 'simple_chain.txt')
+        self.assertTrue(False)
 
 
 
